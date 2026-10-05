@@ -1,0 +1,118 @@
+/*
+Nireekshana Shivarathri - NS
+
+I used this CSS file to control the basic design of the homepage.
+I chose pink colors because I wanted the website to feel friendly
+and welcoming. I kept the layout simple so the page would not look
+too crowded or complicated. I used spacing between each section so
+the buttons and descriptions are easy to read. I also centered the
+main image because it is the first thing visitors see after the
+welcome heading. The same CSS file can also be used for the other
+pages so the website looks consistent. I used dark text on light
+backgrounds because it is easier to read.
+*/
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #fff5f8;
+    color: #333333;
+}
+
+
+header {
+    background-color: #f8bfd0;
+    text-align: center;
+    padding: 30px;
+}
+
+
+header h1 {
+    font-size: 45px;
+    margin: 0;
+}
+
+
+header p {
+    font-size: 18px;
+}
+
+
+nav {
+    background-color: #ffdbe6;
+    text-align: center;
+    padding: 12px;
+}
+
+
+nav a {
+    color: #5a2d3c;
+    text-decoration: none;
+    margin: 15px;
+    font-weight: bold;
+}
+
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+
+main {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding: 30px;
+}
+
+
+.welcome-image {
+    width: 70%;
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+
+.intro {
+    max-width: 700px;
+    margin: 20px auto 40px auto;
+    font-size: 18px;
+}
+
+
+.page-section {
+    margin: 35px auto;
+    max-width: 600px;
+}
+
+
+.page-button {
+    display: block;
+    background-color: #e88fac;
+    color: white;
+    padding: 14px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+.page-button:hover {
+    background-color: #cf7394;
+}
+
+
+.page-section p {
+    background-color: white;
+    padding: 15px;
+    margin-top: 0;
+}
+
+
+footer {
+    background-color: #f8bfd0;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}

@@ -1,13 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>LIS 500</title>
+    <meta charset="UTF-8">
+    <title>LIS 500 Group Project</title>
+
+    <!--
+    Nireekshana Shivarathri - NS
+
+    I made this homepage as the welcome page for our group website.
+    I wanted it to look simple, friendly, and easy to understand.
+    I used a large welcome heading, an image, and links to the other
+    pages so visitors can quickly see what the website includes.
+    I chose pink colors because I wanted the site to feel bright and
+    welcoming. I also kept the layout basic because we are still
+    learning HTML and CSS. I used one separate CSS file so the same
+    colors and style can be used on all of the pages. The navigation
+    at the top also helps users move between the pages easily.
+    -->
+
+    <link rel="stylesheet" href="stylepage.css">
 </head>
+
 <body>
 
-  <h1>Welcome to our LIS 500 Project!</h1>
+    <header>
+    <h1>LIS 500 Group Project</h1>
+    </header>
 
-  This is a group project by Nireekshana Shivarathri, Yuthika Goel and Maddie Root.
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="resources.html">Resources</a>
+        <a href="techheroes.html">Tech Hero</a>
+    </nav>
+
+    <main>
+
+        <img src="images/welcome.image.svg"
+             alt="A diverse group of people holding a welcome sign"
+             class="welcome-image">
+
+        
+
+        <div class="page-section">
+
+            <a class="page-button" href="about.html">About Us</a>
+
+            <p>
+                Learn more about our group members and our interests.
+            </p>
+
+        </div>
+
+
+        <div class="page-section">
+
+            <a class="page-button" href="resources.html">
+                Implicit Bias Resources
+            </a>
+
+            <p>
+                Learn about implicit bias, intersectionality, and useful resources.
+            </p>
+
+        </div>
+
+
+        <div class="page-section">
+
+            <a class="page-button" href="techheroes.html">
+                Tech Hero
+            </a>
+
+            <p>
+                Meet someone who is helping make technology more inclusive.
+            </p>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <p>LIS 500 - Code and Power</p>
+        <p>Created by Nireekshana Shivarathri, Yuthika Goel, and Madeline Root </p>
+    </footer>
 
 </body>
+
 </html>
