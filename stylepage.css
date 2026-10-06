@@ -116,3 +116,162 @@ footer {
     padding: 20px;
     margin-top: 40px;
 }
+
+.resource-page {
+    width: min(90%, 900px);
+    text-align: left;
+}
+
+.resource-page h2 {
+    color: #5a2d3c;
+    margin-top: 0;
+}
+
+.resource-hero {
+    margin: 0 auto 30px;
+    text-align: center;
+}
+
+.resource-hero img {
+    display: block;
+    width: 100%;
+    max-height: 340px;
+    object-fit: cover;
+    margin: 0 auto;
+}
+
+.resource-hero figcaption {
+    color: #5a2d3c;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.resource-intro,
+.guide-section,
+.guide-nav {
+    background-color: white;
+    padding: 24px 28px;
+    margin: 24px auto;
+    border-radius: 8px;
+}
+
+.resource-intro {
+    font-size: 17px;
+}
+
+.eyebrow,
+.section-label {
+    color: #8b4660;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.starter-note,
+.fill-in-prompt {
+    background-color: #fff5f8;
+    border-left: 4px solid #e88fac;
+    padding: 12px 16px;
+    font-size: 15px;
+}
+
+.guide-nav {
+    border: 1px solid #f1c4d2;
+}
+
+.guide-nav h2 {
+    font-size: 20px;
+}
+
+.guide-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    margin-bottom: 0;
+    padding-left: 20px;
+}
+
+.guide-nav a,
+.resource-list a {
+    color: #71364b;
+    font-weight: bold;
+}
+
+.guide-section {
+    scroll-margin-top: 20px;
+    line-height: 1.65;
+}
+
+.guide-section h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.guide-section h3 {
+    margin: 0 0 6px;
+}
+
+.reflection,
+.callout {
+    background-color: #fff5f8;
+    border-radius: 6px;
+    margin: 18px 0;
+    padding: 16px 20px;
+}
+
+.reflection p,
+.callout p,
+.resource-list p {
+    margin: 0;
+}
+
+.practice-list {
+    padding-left: 24px;
+}
+
+.practice-list li {
+    margin: 8px 0;
+}
+
+.resource-list {
+    padding-left: 24px;
+}
+
+.resource-list li {
+    margin: 18px 0;
+}
+
+.resource-list p {
+    margin-top: 5px;
+}
+
+.resource-page a:focus-visible {
+    outline: 3px solid #71364b;
+    outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+    .resource-page {
+        width: 92%;
+        padding: 20px 0;
+    }
+
+    .resource-intro,
+    .guide-section,
+    .guide-nav {
+        padding: 20px;
+    }
+
+    .guide-section h2 {
+        font-size: 24px;
+    }
+
+    .guide-nav ul {
+        display: block;
+    }
+
+    .guide-nav li {
+        margin: 8px 0;
+    }
+}
