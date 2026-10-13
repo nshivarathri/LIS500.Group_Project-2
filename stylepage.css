@@ -314,5 +314,11 @@ footer {
 }
 
 .page-section h2 {
-    color: #5a2d3c;
+    display: inline-block;
+    background-color: #b94f77;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 6px;
+    font-size: 18px;
+    margin-top: 0;
 }
