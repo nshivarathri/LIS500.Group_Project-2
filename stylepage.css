@@ -120,6 +120,14 @@ main {
     max-width: 600px;
 }
 
+.image-of-tech-hero {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    margin: 0 auto 20px;
+}
+
 
 /* NS - I made the links darker and more like actual buttons. */
 .page-button {
