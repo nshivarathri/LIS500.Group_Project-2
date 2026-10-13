@@ -49,14 +49,18 @@ nav {
 nav a {
     color: #5a2d3c;
     text-decoration: none;
-    margin: 15px;
+    margin: 8px;
     font-weight: bold;
-    padding: 6px;
+    padding: 10px 16px;
+    background-color: #fff5f8;
+    border-radius: 6px;
+    display: inline-block;
 }
 
 /* NS - I added underline when hovering so its more obvious that these are links */
 nav a:hover {
-    text-decoration: underline;
+    background-color: #e88fac;
+    color: white;
 }
 
 /* NS - This makes it easier to see what page you are on. */
@@ -147,6 +151,28 @@ footer {
     text-align: center;
     padding: 20px;
     margin-top: 40px;
+}
+
+/* NS - I added this so the page works better on phones. */
+@media (max-width: 700px) {
+    header h1 {
+        font-size: 34px;
+    }
+
+    nav a {
+        display: inline-block;
+        margin: 6px;
+    }
+    main {
+        width: 90%;
+        padding: 20px;
+    }
+    .welcome-image {
+        width: 95%;
+    }
+    .page-section{
+        padding: 15px;
+    }
 }
 
 /**
