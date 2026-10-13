@@ -3,16 +3,23 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>About Us - LIS 500 Group Project</title>
 
     <!--
     Yuthika Goel - YG
 
-    I wanted the About page to feel like the rest of the site, so I kept the soft pink
-    color palette and simple layout. I also made each person’s section look clean and
-    consistent with the same card style format, which makes the page feel organized without
-    getting too crowded. I created an images folder so the photos could be stored in one place
-    and referenced easily instead of being mixed into the main page files.
+    I designed the About Us page to match the soft pink color palette used throughout
+    the rest of the website. Based on peer feedback, I changed the layout so that the
+    group member profiles appear next to one another on larger screens instead of
+    requiring users to scroll through several large images. I also reduced the profile
+    image sizes and organized each biography into a consistent card layout.
+
+    I added accessibility features including descriptive alternative text for images,
+    a skip-to-content link for keyboard users, semantic headings, and a label for the
+    main navigation. The layout is responsive so the profile cards stack vertically
+    on smaller screens.
     -->
 
     <link rel="stylesheet" href="stylepage.css">
@@ -20,74 +27,119 @@
 
 <body>
 
+    <!-- Allows keyboard users to skip the navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <header>
         <h1>About Us</h1>
+        <p>Meet the students behind our LIS 500 project.</p>
     </header>
 
-    <nav>
+    <!-- Main website navigation -->
+    <nav aria-label="Main navigation">
         <a href="index.html">Home</a>
-        <a href="about.html">About Us</a>
+        <a href="about.html" aria-current="page">About Us</a>
         <a href="resources.html">Resources</a>
-        <a href="techheroes.html">Tech Hero</a>
+        <a href="techheroes.html">Tech Heroes</a>
     </nav>
 
-    <main>
+    <main id="main-content">
 
-        <p class="intro">
-            We are a group of students in LIS 500 - Code and Power. Learn more about each of us
-            below.
-        </p>
-
-        <div class="member">
-
-            <img src="images/yuthika.png"
-                 alt="Photo of Yuthika Goel"
-                 class="member-photo">
-
-            <h2>Yuthika Goel</h2>
+        <section class="about-intro">
+            <h2>Meet Our Team</h2>
 
             <p>
-                Hello! My name is Yuthika Goel, and I am a Junior studying Computer Science and
-                Data Science major with certificate in Digital Studies. I decided to take this
-                class because I wanted to explore the intersection between technology, its users
-                and its creators. As a woman interested in technology and motorsport (Formula 1
-                to be specific) which are two fields where women are severely underrepresented,
-                I'd like to understand how bias and inequality contributes to this disparity. I
-                hope to use what I learn to think more critically about the technology I create
-                and the industries I hope to work in.
+                We are students in LIS 500 - Code and Power with different academic
+                backgrounds and interests. Through this project, we are exploring how
+                technology connects with people, power, representation, and bias.
+                Learn more about each of us and what brought us to this course.
             </p>
+        </section>
 
-        </div>
+        <!--
+        Profile cards are grouped together so they can appear side by side
+        on larger screens and stack vertically on smaller screens.
+        -->
+        <section class="member-grid" aria-label="Group member profiles">
 
-        <div class="member">
+            <!-- Yuthika Goel -->
+            <article class="member">
 
-            <img src="images/Nireekshana.png"
-                 alt="Photo of Nireekshana Shivarathri"
-                 class="member-photo">
+                <img src="images/Yuthika.png"
+                     alt="Portrait of Yuthika Goel"
+                     class="member-photo">
 
-            <h2>Nireekshana Shivarathri</h2>
+                <h2>Yuthika Goel</h2>
 
-            <p class="member-bio">
-                Hi everyone! I’m an international student from India and a Junior at UW-Madison,
-                pursuing a BS in Information Science.
-            </p>
+                <p>
+                    Hello! My name is Yuthika Goel, and I am a junior studying Computer
+                    Science and Data Science with a certificate in Digital Studies. I
+                    decided to take this class because I wanted to explore the intersection
+                    between technology, its users, and its creators.
+                </p>
 
-        </div>
+                <p>
+                    As a woman interested in technology and motorsport, specifically
+                    Formula 1, I am interested in understanding why women remain
+                    underrepresented in both fields and how bias and inequality can
+                    contribute to these disparities. I hope to use what I learn in this
+                    course to think more critically about the technology I create and the
+                    industries I hope to work in.
+                </p>
 
-        <div class="member">
+            </article>
 
-            <img src="images/maddie.png"
-                 alt="Photo of Madeline Root"
-                 class="member-photo">
 
-            <h2>Madeline Root</h2>
+            <!-- Nireekshana Shivarathri -->
+            <article class="member">
 
-            <p>
-                Hi everyone! I am an Information Science and Communication Arts major. I'm from
-                Baltimore, Maryland and I am a senior at UW-Madison.
-            </p>
+                <img src="images/Nireekshana.png"
+                     alt="Portrait of Nireekshana Shivarathri"
+                     class="member-photo">
 
-        </div>
+                <h2>Nireekshana Shivarathri</h2>
+
+                <p>
+                    Hi! I’m Nireekshana. I’m a junior studying Information Science,
+                    originally from Telangana, India. I’m taking this course both for a
+                    requirement and because I love where technology and people overlap.
+                </p>
+
+                <p>
+                    I’m hoping to become a business analyst after I graduate, so I’m
+                    interested in learning how technology affects different communities
+                    and how we can build systems that work for everyone. I also hope to
+                    gain more hands-on experience with web scripting through this project.
+                </p>
+
+            </article>
+
+
+            <!-- Madeline Root -->
+            <article class="member">
+
+                <img src="images/maddie.png"
+                     alt="Portrait of Madeline Root"
+                     class="member-photo">
+
+                <h2>Madeline Root</h2>
+
+                <p>
+                    Hi I’m Maddie Root. I’m an information science and communication arts
+                    major. I am from Baltimore, Maryland and a senior at UW-Madison. I want
+                    to work in tech and business when I graduate. I am taking this class as
+                    a requirement for my major!
+                </p>
+
+                <p>
+                    My academic interests have made me interested in the relationship
+                    between information, communication, and the ways people interact with
+                    technology.
+                </p>
+
+            </article>
+
+        </section>
 
     </main>
 
