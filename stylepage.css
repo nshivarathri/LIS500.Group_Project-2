@@ -11,7 +11,7 @@
  * pages so the website looks consistent.
  */
 
-
+/* NS - I used Arial because it is just simple and easy to read. */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -19,7 +19,7 @@ body {
     color: #333333;
 }
 
-
+/* NS - I used darker pink here so the top of the page stands out a little */
 header {
     background-color: #f8bfd0;
     text-align: center;
@@ -37,7 +37,8 @@ header p {
     font-size: 18px;
 }
 
-
+/* NS - I kept the navigation centered because I think it looks cleaner
+and its easier to find */
 nav {
     background-color: #ffdbe6;
     text-align: center;
@@ -50,23 +51,27 @@ nav a {
     text-decoration: none;
     margin: 15px;
     font-weight: bold;
+    padding: 6px;
 }
 
-
+/* NS - I added underline when hovering so its more obvious that these are links */
 nav a:hover {
     text-decoration: underline;
 }
 
+/* NS - This makes it easier to see what page you are on. */
+nav a[aria-current="page"] {
+    text-decoration: underline;
+}
 
-/* Keyboard accessibility */
-
+/* I added this for Keyboard users so they can see which link they currently are on */
 a:focus-visible {
     outline: 3px solid #71364b;
     outline-offset: 3px;
 }
 
 
-/* Skip navigation link for keyboard users */
+/*  NS - This is Skip navigation link for keyboard users */
 
 .skip-link {
     position: absolute;
@@ -83,7 +88,7 @@ a:focus-visible {
     z-index: 1000;
 }
 
-
+/* NS - I made the main part 80% wide so everything doesn't stretch too much on screen */
 main {
     width: 80%;
     margin: auto;
@@ -99,10 +104,10 @@ main {
 }
 
 
-.intro {
-    max-width: 700px;
-    margin: 20px auto 40px auto;
-    font-size: 18px;
+.page-section {
+   background-color: white;
+   padding: 20px;
+   border-radius: 8px;
 }
 
 
@@ -112,26 +117,28 @@ main {
 }
 
 
+/* NS - I made the links darker and more like actual buttons. */
 .page-button {
-    display: block;
-    background-color: #e88fac;
+    display: inline-block;
+    background-color: #b94f77;
     color: white;
-    padding: 14px;
+    padding: 12px 22px;
     text-decoration: none;
     font-weight: bold;
     font-size: 18px;
+    border-radius: 6px;
 }
 
-
+/* NS - I added a hover color so people can tell the button is clickable. */
 .page-button:hover {
-    background-color: #cf7394;
+    background-color: #8f3859;
 }
 
 
 .page-section p {
     background-color: white;
     padding: 15px;
-    margin-top: 0;
+    margin-top: 5px;
 }
 
 
