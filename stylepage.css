@@ -279,3 +279,28 @@ footer {
         height: 130px;
     }
 }
+
+.resource-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+.resource-links a {
+    background-color: #fff5f8;
+    color: #5a2d3c;
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+.resource-links a:hover {
+    background-color: #e88fac;
+    color: white;
+}
+.resource-image {
+    width: 60%;
+    max-width: 500px;
+    height: auto;
+    margin: 20px auto;
+}
