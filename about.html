@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>About Us - LIS 500 Group Project</title>
-
-    <!--
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   About Us | LIS 500 Code and Power
+  </title>
+  <!--
     Yuthika Goel - YG
 
     I designed the About Us page to match the soft pink color palette used throughout
@@ -21,133 +20,176 @@
     main navigation. The layout is responsive so the profile cards stack vertically
     on smaller screens.
     -->
-
-    <link rel="stylesheet" href="stylepage.css">
-</head>
-
-<body>
-
-    <!-- Allows keyboard users to skip the navigation -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <header>
-        <h1>About Us</h1>
-        <p>Meet the students behind our LIS 500 project.</p>
-    </header>
-
-    <!-- Main website navigation -->
-    <nav aria-label="Main navigation">
-        <a href="index.html">Home</a>
-        <a href="about.html" aria-current="page">About Us</a>
-        <a href="resources.html">Resources</a>
-        <a href="techheroes.html">Tech Heroes</a>
-    </nav>
-
-    <main id="main-content">
-
-        <section class="about-intro">
-            <h2>Meet Our Team</h2>
-
-            <p>
-                We are students in LIS 500 - Code and Power with different academic
-                backgrounds and interests. Through this project, we are exploring how
-                technology connects with people, power, representation, and bias.
-                Learn more about each of us and what brought us to this course.
-            </p>
-        </section>
-
-        <!--
+  <link href="stylepage.css" rel="stylesheet"/>
+  <link href="site-assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+ </head>
+ <body class="page-about">
+  <!-- Allows keyboard users to skip the navigation -->
+  <a class="skip-link" href="#main-content">
+   Skip to main content
+  </a>
+  <header class="site-header">
+   <a aria-label="LIS 500 Code and Power home" class="site-brand" href="index.html">
+    <img alt="" aria-hidden="true" class="course-logo" height="44" src="site-assets/course-mark.svg" width="44"/>
+    <span>
+     LIS 500
+     <span class="brand-sub">
+      Code and Power
+     </span>
+    </span>
+   </a>
+   <nav aria-label="Main navigation" class="site-nav">
+    <a href="index.html">
+     Home
+    </a>
+    <a aria-current="page" href="about.html">
+     About Us
+    </a>
+    <a href="resources.html">
+     Resources
+    </a>
+    <a href="techheroes.html">
+     Tech Heroes
+    </a>
+    <a class="bunny-link" href="teachablemachine/index.html">
+     Teachable Machine
+    </a>
+   </nav>
+  </header>
+  <section aria-labelledby="page-title" class="page-hero">
+   <div class="hero-copy">
+    <span class="eyebrow">
+     MEET THE POSTAL CREW
+    </span>
+    <h1 id="page-title">
+     About Us
+    </h1>
+    <p>
+     Meet the students behind our LIS 500 project.
+    </p>
+   </div>
+   <div class="hero-art">
+    <img alt="" aria-hidden="true" class="hero-bunny" height="251" src="site-assets/oscbunny.svg" width="300"/>
+    <span aria-hidden="true" class="bunny-note">
+     The people behind the words.
+    </span>
+    <div aria-hidden="true" class="postmark">
+     <span>
+      OSCBUNNY POST
+     </span>
+     <b>
+      81
+     </b>
+     <small>
+      HANDLE WITH CARE
+     </small>
+    </div>
+   </div>
+  </section>
+  <div aria-hidden="true" class="airmail-rule">
+  </div>
+  <!-- Main website navigation -->
+  <main class="page-content" id="main-content">
+   <section class="about-intro">
+    <h2>
+     Meet Our Team
+    </h2>
+    <p>
+     We are students in LIS 500 - Code and Power with different academic
+          backgrounds and interests. Through this project, we are exploring how
+          technology connects with people, power, representation, and bias.
+          Learn more about each of us and what brought us to this course.
+    </p>
+   </section>
+   <!--
         Profile cards are grouped together so they can appear side by side
         on larger screens and stack vertically on smaller screens.
         -->
-        <section class="member-grid" aria-label="Group member profiles">
-
-            <!-- Yuthika Goel -->
-            <article class="member">
-
-                <img src="images/yuthika.png"
-                     alt="Portrait of Yuthika Goel"
-                     class="member-photo">
-
-                <h2>Yuthika Goel</h2>
-
-                <p>
-                    Hello! My name is Yuthika Goel, and I am a junior studying Computer
-                    Science and Data Science with a certificate in Digital Studies. I
-                    decided to take this class because I wanted to explore the intersection
-                    between technology, its users, and its creators.
-                </p>
-
-                <p>
-                    As a woman interested in technology and motorsport, specifically
-                    Formula 1, I am interested in understanding why women remain
-                    underrepresented in both fields and how bias and inequality can
-                    contribute to these disparities. I hope to use what I learn in this
-                    course to think more critically about the technology I create and the
-                    industries I hope to work in.
-                </p>
-
-            </article>
-
-
-            <!-- Nireekshana Shivarathri -->
-            <article class="member">
-
-                <img src="images/Nireekshana.png"
-                     alt="Portrait of Nireekshana Shivarathri"
-                     class="member-photo">
-
-                <h2>Nireekshana Shivarathri</h2>
-
-                <p>
-                    Hi! I’m Nireekshana. I’m a junior studying Information Science,
-                    originally from Telangana, India. I’m taking this course both for a
-                    requirement and because I love where technology and people overlap.
-                </p>
-
-                <p>
-                    I’m hoping to become a business analyst after I graduate, so I’m
-                    interested in learning how technology affects different communities
-                    and how we can build systems that work for everyone. I also hope to
-                    gain more hands-on experience with web scripting through this project.
-                </p>
-
-            </article>
-
-
-            <!-- Madeline Root -->
-            <article class="member">
-
-                <img src="images/maddie.png"
-                     alt="Portrait of Madeline Root"
-                     class="member-photo">
-
-                <h2>Madeline Root</h2>
-
-                <p>
-                    Hi I’m Maddie Root. I’m an information science and communication arts
-                    major. I am from Baltimore, Maryland and a senior at UW-Madison. I want
-                    to work in tech and business when I graduate. I am taking this class as
-                    a requirement for my major!
-                </p>
-
-                <p>
-                    My academic interests have made me interested in the relationship
-                    between information, communication, and the ways people interact with
-                    technology.
-                </p>
-
-            </article>
-
-        </section>
-
-    </main>
-
-    <footer>
-        <p>LIS 500 - Code and Power</p>
-        <p>Created by Nireekshana Shivarathri, Yuthika Goel, and Madeline Root</p>
-    </footer>
-
-</body>
-
+   <section aria-label="Group member profiles" class="member-grid">
+    <!-- Yuthika Goel -->
+    <article class="member">
+     <span class="card-label">
+      POSTAL CREW / 01
+     </span>
+     <div class="portrait-stamp">
+      <img alt="Portrait of Yuthika Goel" class="member-photo" src="images/yuthika.png"/>
+     </div>
+     <h2>
+      Yuthika Goel
+     </h2>
+     <p>
+      Hello! My name is Yuthika Goel, and I am a junior studying Computer
+            Science and Data Science with a certificate in Digital Studies. I
+            decided to take this class because I wanted to explore the
+            intersection between technology, its users, and its creators.
+     </p>
+     <p>
+      As a woman interested in technology and motorsport, specifically
+            Formula 1, I am interested in understanding why women remain
+            underrepresented in both fields and how bias and inequality can
+            contribute to these disparities. I hope to use what I learn in this
+            course to think more critically about the technology I create and
+            the industries I hope to work in.
+     </p>
+    </article>
+    <!-- Nireekshana Shivarathri -->
+    <article class="member">
+     <span class="card-label">
+      POSTAL CREW / 02
+     </span>
+     <div class="portrait-stamp">
+      <img alt="Portrait of Nireekshana Shivarathri" class="member-photo" src="images/Nireekshana.png"/>
+     </div>
+     <h2>
+      Nireekshana Shivarathri
+     </h2>
+     <p>
+      Hi! I’m Nireekshana. I’m a junior studying Information Science,
+            originally from Telangana, India. I’m taking this course both for a
+            requirement and because I love where technology and people overlap.
+     </p>
+     <p>
+      I’m hoping to become a business analyst after I graduate, so I’m
+            interested in learning how technology affects different communities
+            and how we can build systems that work for everyone. I also hope to
+            gain more hands-on experience with web scripting through this
+            project.
+     </p>
+    </article>
+    <!-- Madeline Root -->
+    <article class="member">
+     <span class="card-label">
+      POSTAL CREW / 03
+     </span>
+     <div class="portrait-stamp">
+      <img alt="Portrait of Madeline Root" class="member-photo" src="images/maddie.png"/>
+     </div>
+     <h2>
+      Madeline Root
+     </h2>
+     <p>
+      Hi I’m Maddie Root. I’m an information science and communication
+            arts major. I am from Baltimore, Maryland and a senior at
+            UW-Madison. I want to work in tech and business when I graduate. I
+            am taking this class as a requirement for my major!
+     </p>
+     <p>
+      My academic interests have made me interested in the relationship
+            between information, communication, and the ways people interact
+            with technology.
+     </p>
+    </article>
+   </section>
+  </main>
+  <footer class="site-footer">
+   <div class="footer-credit">
+    <p>
+     LIS 500 - Code and Power
+    </p>
+    <p>
+     Created by Nireekshana Shivarathri, Yuthika Goel, and Madeline Root
+    </p>
+   </div>
+  </footer>
+ </body>
 </html>

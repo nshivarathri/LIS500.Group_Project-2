@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>LIS 500 Group Project</title>
-
-    <!--
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   LIS 500 Code and Power
+  </title>
+  <!--
      ---- NS
 
     I made this homepage as the welcome page for our group website.
@@ -16,83 +16,111 @@
     I also kept the layout basic. I used one separate CSS file. 
     
     -->
-
-    <link rel="stylesheet" href="stylepage.css">
-</head>
-
-<body>
-
-    <!-- NS - I added this skip link for accessibility so someone using a 
-    keyboard can go straight to the main content. --> 
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <header>
-    <h1>LIS 500 Group Project</h1>
-    </header>
-
-    <!-- NS - I kept the navigation at the top so it is easy to move 
+  <link href="stylepage.css" rel="stylesheet"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link href="site-assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+ </head>
+ <body class="page-home">
+  <!-- NS - I added this skip link for accessibility so someone using a 
+    keyboard can go straight to the main content. -->
+  <a class="skip-link" href="#main-content">
+   Skip to main content
+  </a>
+  <header class="site-header">
+   <a aria-label="LIS 500 Code and Power home" class="site-brand" href="index.html">
+    <img alt="" aria-hidden="true" class="course-logo" height="44" src="site-assets/course-mark.svg" width="44"/>
+    <span>
+     LIS 500
+     <span class="brand-sub">
+      Code and Power
+     </span>
+    </span>
+   </a>
+   <nav aria-label="Main navigation" class="site-nav">
+    <a aria-current="page" href="index.html">
+     Home
+    </a>
+    <a href="about.html">
+     About Us
+    </a>
+    <a href="resources.html">
+     Resources
+    </a>
+    <a href="techheroes.html">
+     Tech Hero
+    </a>
+    <a class="bunny-link" href="teachablemachine/index.html">
+     Teachable Machine
+    </a>
+   </nav>
+  </header>
+  <section aria-labelledby="page-title" class="page-hero">
+   <div class="hero-copy">
+    <span class="eyebrow">
+     EXPLORING TECHNOLOGY, PEOPLE &amp; POWER.
+    </span>
+    <h1 id="page-title">
+     LIS 500 Code and Power
+    </h1>
+   </div>
+   <div class="hero-art">
+    <div class="welcome-frame">
+     <img alt="A diverse group of people holding a welcome sign" class="welcome-image" src="images/welcome.image.svg"/>
+    </div>
+   </div>
+  </section>
+  <div aria-hidden="true" class="airmail-rule">
+  </div>
+  <!-- NS - I kept the navigation at the top so it is easy to move 
     between all the pages on our website. -->
-    <nav aria-label="Main navigation">
-        <a href="index.html" aria-current="page">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="resources.html">Resources</a>
-        <a href="techheroes.html">Tech Hero</a>
-    </nav>
-
-    <main id="main-content">
-
-        <!-- NS- I added an image and alt text so the image can be 
+  <main class="page-content" id="main-content">
+   <!-- NS- I added an image and alt text so the image can be 
         described by a screen reader. -->
-
-        <img src="images/welcome.image.svg"
-             alt="A diverse group of people holding a welcome sign"
-             class="welcome-image">
-
-        
-
-        <div class="page-section">
-
-            <a class="page-button" href="about.html">Meet Our Team</a>
-
-            <p>
-                Learn more about our group members and our interests.
-            </p>
-
-        </div>
-
-
-        <div class="page-section">
-
-            <a class="page-button" href="resources.html">
-                Explore Resources
-            </a>
-
-            <p>
-                Learn about implicit bias, intersectionality, and useful resources.
-            </p>
-
-        </div>
-
-
-        <div class="page-section">
-
-            <a class="page-button" href="techheroes.html">
-                Meet Our Tech Heroes
-            </a>
-
-            <p>
-                Meet someone who is helping make technology more inclusive.
-            </p>
-
-        </div>
-
-    </main>
-
-    <footer>
-        <p>LIS 500 - Code and Power</p>
-        <p>Created by Nireekshana Shivarathri, Yuthika Goel, and Madeline Root </p>
-    </footer>
-
-</body>
-
+   <div class="home-grid">
+    <div class="page-section postcard">
+     <span class="card-label">
+      LITTLE LETTER NO. 01
+     </span>
+     <a class="page-button" href="about.html">
+      Meet Our Team
+     </a>
+     <p>
+      Learn more about our group members and our interests.
+     </p>
+    </div>
+    <div class="page-section postcard">
+     <span class="card-label">
+      LITTLE LETTER NO. 02
+     </span>
+     <a class="page-button" href="resources.html">
+      Explore Resources
+     </a>
+     <p>
+      Learn about implicit bias, intersectionality, and useful resources.
+     </p>
+    </div>
+    <div class="page-section postcard">
+     <span class="card-label">
+      LITTLE LETTER NO. 03
+     </span>
+     <a class="page-button" href="techheroes.html">
+      Meet Our Tech Heroes
+     </a>
+     <p>
+      Meet someone who is helping make technology more inclusive.
+     </p>
+    </div>
+   </div>
+  </main>
+  <footer class="site-footer">
+   <div class="footer-credit">
+    <p>
+     LIS 500 - Code and Power
+    </p>
+    <p>
+     Created by Nireekshana Shivarathri, Yuthika Goel, and Madeline Root
+    </p>
+   </div>
+  </footer>
+ </body>
 </html>

@@ -1,0 +1,11 @@
+{
+  "name": "lis500-oscbunny-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node tools/preview.mjs",
+    "build:oscbunny": "node tools/build-oscbunny.mjs"
+  },
+  "engines": {"node": ">=20"}
+}
