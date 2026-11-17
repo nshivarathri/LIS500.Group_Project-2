@@ -4,7 +4,7 @@
  * then set modelUrl to './model/'. No model is bundled and no scores are invented.
  */
 export const experiment = {
-  modelUrl: "", // TODO: paste your final, trained model link here.
+  modelUrl: "https://teachablemachine.withgoogle.com/models/Z4AaYnfY3/", // TODO: paste your final, trained model link here.
   /** Demo video: a YouTube, Vimeo or Google Drive share link, or a local file
    * placed in public/ (e.g. "./demo.mp4"). For Google Drive, set sharing to
    * "Anyone with the link". */
