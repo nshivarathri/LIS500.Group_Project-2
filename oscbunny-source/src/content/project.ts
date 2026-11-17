@@ -2,7 +2,7 @@
  * Student-written content only. Paragraphs are separated by a blank line.
  */
 export const project = {
-  introduction: `When we first started this project I honestly thought our idea would be pretty straightforward. We decided to make a model that could recognize handwritten Hindi, Telugu and English. These three look very different to me when I see them written down. Because of that I assumed the model would also be able to see those differences pretty easily. I thought that if we gave it enough examples of each language then it would eventually figure out what makes each one different. After actually making the model and testing it I realized that machine learning does not really work as simply as I thought it did.`,
+  introduction: `When we first started this project we honestly thought our idea would be pretty straightforward. We decided to make a model that could recognize handwritten Hindi, Telugu and English. These three looked very different to us when saw them written down. Because of that we assumed the model would also be able to see those differences pretty easily. we thought that if we gave it enough examples of each language then it would eventually figure out what makes each one different. After actually making the model and testing it we realized that machine learning does not really work as simply as we thought it did.`,
 
   researchQuestion: `Can a Teachable Machine image model trained using our handwritten Hindi, Telugu, and English examples correctly classify new handwriting that was not part of its training data? We also wanted to see if adding more variety to the training images would make the model work better.`,
 
@@ -14,7 +14,7 @@ At first 301 images sounded like a lot to me. I thought having around 100 exampl
 
 We tried new handwritten examples to see what would happen. Sometimes the model did recognize them correctly. But when the handwriting changed the results could change a lot too. One of the tests that really stood out to me was a Telugu example written by a different person. The model predicted that it was Hindi with 97% confidence.
 
-That result confused me at first. Telugu and Hindi look different to me. So I started wondering what exactly the model was looking at. Was it actually recognizing the script? Was it recognizing the handwriting style? Was it looking at something about the paper or the picture? I could not really tell just by looking at the prediction.
+That result confused me at first. Telugu and Hindi look different to me. So we started wondering what exactly the model was looking at. Was it actually recognizing the script? Was it recognizing the handwriting style? Was it looking at something about the paper or the picture? I could not really tell just by looking at the prediction.
 
 That was probably the first point where I stopped thinking about the model as something that was actually reading the language.`,
 

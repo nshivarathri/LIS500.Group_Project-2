@@ -8,7 +8,7 @@ export const experiment = {
   /** Demo video: a YouTube, Vimeo or Google Drive share link, or a local file
    * placed in public/ (e.g. "./demo.mp4"). For Google Drive, set sharing to
    * "Anyone with the link". */
-  demoVideoUrl: "", // TODO: your group's original demonstration video link.
+  demoVideoUrl: "./demo.mp4", // TODO: your group's original demonstration video link.
   demoCaptionsUrl: "", // TODO: optional WebVTT captions for a local MP4/WebM.
   demoTranscript: "", // TODO: your group's video transcript.
   /** Project links shown in the Project statement. Leave blank to show a placeholder. */
