@@ -34,3 +34,66 @@ nav button{font-size:12px}.eyebrow{font-size:9px;color:#92785f}.hero-copy>p{font
 @media(max-width:750px){.project-links{grid-template-columns:1fr}.links-section h2{font-size:25px}.links-section{padding:22px}}
 .home-video{padding:26px 0 30px}.home-video .video-section{margin-top:0}
 @media(max-width:750px){.home-video{padding:20px 0 24px}}
+/* Script stamps in the dataset graphic: one letter of each language, in the postcard stamp colours. */
+.planned-stats .script-stamp{display:flex;align-items:center;justify-content:center;width:46px;height:54px;margin:0 0 10px 3px;font-family:"Nirmala UI","Noto Sans Devanagari","Noto Sans Telugu","Kohinoor Devanagari","Kohinoor Telugu",sans-serif;font-size:26px;font-weight:600;line-height:1;border:1.5px dashed;outline:2px solid;outline-offset:0;transform:rotate(-4deg)}
+.planned-stats .script-stamp.hindi{border-color:#a1b6ba;background:#d3e2e4;outline-color:#dce8e9;color:#6f8a8f}
+.planned-stats .script-stamp.telugu{border-color:#c4a1a3;background:#e9cbcd;outline-color:#efd9d8;color:#a1737a;transform:rotate(3deg)}
+.planned-stats .script-stamp.english{border-color:#c7b583;background:#e9dbac;outline-color:#f0e4bd;color:#9c8549;transform:rotate(-2deg)}
+
+/* ---------- Project statement: editorial layout ----------
+   Long-form writing reads in one column with a comfortable line length, beside
+   a sticky contents list on wide screens. Columns are used only for short,
+   related information (dataset panel, metrics, link cards). Nothing relies on
+   equal-height cards, fixed heights or absolute positioning. */
+.research-notebook{padding:30px 0 56px}
+.statement-layout{display:grid;grid-template-columns:200px minmax(0,1fr);gap:64px;align-items:start;margin-top:12px}
+.statement-toc{position:sticky;top:24px;align-self:start;display:block;height:auto;padding-top:6px}
+.statement-toc ol{list-style:none;margin:14px 0 0;padding:0;border-left:1px solid var(--line)}
+.statement-toc a{display:flex;gap:10px;align-items:baseline;padding:7px 0 7px 15px;margin-left:-1px;border-left:2px solid transparent;font-size:12.5px;line-height:1.4;color:#9c8670;text-decoration:none;transition:color .2s,border-color .2s}
+.statement-toc a:hover,.statement-toc a:focus-visible{color:var(--ink);border-left-color:#e6aa7c}
+.statement-toc a b{font-size:10px;font-weight:600;letter-spacing:.6px;color:#c29467}
+.statement-body{min-width:0;max-width:780px}
+.statement-section{position:relative;background:#fffdf6;border:1px solid #e6d9c2;border-radius:9px;box-shadow:3px 4px 0 #ece2d033;padding:32px 36px 34px;margin:0 0 24px;scroll-margin-top:24px}
+.statement-section:before{content:'';position:absolute;width:55px;height:15px;background:#eacbb496;top:-6px;right:30px;transform:rotate(5deg)}
+.statement-section.reading-section{background:#fdf7f0}
+
+.statement-section h3{font-family:'Nunito';font-size:28px;font-weight:800;letter-spacing:-.6px;line-height:1.25;color:var(--ink);margin:12px 0 20px}
+.statement-section h4{font-family:'Nunito';font-size:16px;font-weight:800;color:var(--ink);margin:0 0 10px}
+.statement-section .student-prose{white-space:normal;font-size:15px;line-height:1.85;color:#77604f;max-width:68ch;margin:0}
+.statement-section .student-prose p{margin:0 0 1.15em}
+.statement-section .student-prose p:last-child{margin-bottom:0}
+.statement-section .student-prose+.student-prose{margin-top:1.15em}
+.statement-section .writing-slot{max-width:68ch}
+.research-question{margin-top:26px;padding:20px 24px;background:#fbf3e6;border-left:3px solid #e6aa7c;border-radius:0 8px 8px 0;max-width:68ch}
+.research-question .student-prose{font-size:15.5px;color:#6d5545}
+.statement-panel{background:#fbf5ea;border:1px solid #eadfcb;border-radius:8px;padding:22px 24px 16px;margin:0 0 28px}
+
+.statement-panel .planned-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding:0}
+.statement-panel .planned-stats span:not(.script-stamp){font-size:10.5px}
+.statement-panel .plan-label{margin:14px 0 0}
+.statement-section .metric-table{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:28px 0;background:#fbf5ea;border-radius:8px}
+.statement-section .metric-table>div{flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:6px;padding:15px 18px;border-bottom:0;border-right:1px solid #ece2cf;font-size:10.5px}
+.statement-section .metric-table>div:last-child{border-right:0}
+.statement-section .metric-table b{font-family:'Nunito';font-style:normal;font-weight:800;font-size:19px;line-height:1.3;color:#c29467}
+.statement-section .reading-tag{display:inline-flex;margin:0 0 22px}
+.statement-section .references-heading{margin-top:34px;padding-top:24px;border-top:1px solid var(--line)}
+.research-notebook .links-section{margin-top:24px}
+@media(max-width:1100px){
+  .statement-layout{grid-template-columns:minmax(0,1fr);gap:0}
+  .statement-toc{display:none}
+  .statement-body{max-width:none}
+}
+@media(max-width:750px){
+  .research-notebook{padding-bottom:40px}
+  .statement-section{padding:24px 20px 26px;margin-bottom:18px}
+  .statement-section h3{font-size:23px}
+  .statement-section .student-prose{font-size:14.5px;line-height:1.8}
+  .research-question{padding:16px 18px}
+  .statement-panel{padding:18px 16px 14px}
+  .statement-panel .planned-stats{gap:12px}
+  .statement-panel .planned-stats b{font-size:21px}
+  .statement-panel .planned-stats .script-stamp{width:38px;height:45px;font-size:21px}
+  .statement-section .metric-table{grid-template-columns:minmax(0,1fr)}
+  .statement-section .metric-table>div{border-right:0;border-bottom:1px solid #ece2cf}
+  .statement-section .metric-table>div:last-child{border-bottom:0}
+}

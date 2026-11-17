@@ -11,7 +11,7 @@ export const experiment = {
   demoVideoUrl: "", // TODO: your group's original demonstration video link.
   demoCaptionsUrl: "", // TODO: optional WebVTT captions for a local MP4/WebM.
   demoTranscript: "", // TODO: your group's video transcript.
-  /** Project links shown in the Research mailbag. Leave blank to show a placeholder. */
+  /** Project links shown in the Project statement. Leave blank to show a placeholder. */
   repositoryUrl: "https://github.com/nshivarathri/LIS500.Group_Project-2",
   datasetUrl: "https://github.com/nshivarathri/LIS500.Group_Project-2/tree/main/dataset",
   datasetNote: "", // Optional: one line about what the dataset link contains.

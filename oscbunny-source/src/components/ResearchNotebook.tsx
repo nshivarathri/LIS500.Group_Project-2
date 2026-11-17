@@ -9,9 +9,19 @@ import {
 } from "lucide-react";
 import { project } from "../content/project";
 import { experiment } from "../config";
+/** Shows student writing as real paragraphs (split on blank lines), or a
+ * placeholder prompt when the slot is empty. The text itself is not changed. */
 function WritingSlot({ value, prompt }: { value: string; prompt: string }) {
-  return value.trim() ? (
-    <div className="student-prose">{value}</div>
+  const paragraphs = value
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+  return paragraphs.length ? (
+    <div className="student-prose">
+      {paragraphs.map((p, i) => (
+        <p key={i}>{p}</p>
+      ))}
+    </div>
   ) : (
     <div className="writing-slot">
       <span>STUDENT WRITING PLACEHOLDER</span>
@@ -118,143 +128,174 @@ export function Video() {
     </section>
   );
 }
+/** Sections listed in the sticky contents sidebar (wide screens only). */
+const sections = [
+  { id: "statement-intro", number: "01", title: "Introduction" },
+  { id: "statement-dataset", number: "02", title: "Dataset & collection" },
+  { id: "statement-training", number: "03", title: "Training & testing" },
+  { id: "statement-limitations", number: "04", title: "Limitations" },
+  { id: "statement-ethics", number: "05", title: "Ethics" },
+  { id: "statement-reading", number: "06", title: "Reading room" },
+  { id: "statement-ai", number: "07", title: "AI use" },
+  { id: "project-links", number: "08", title: "Find our work" },
+];
 export default function ResearchNotebook() {
   return (
     <section className="research-notebook" id="notebook">
       <div className="airmail-rule" />
       <div className="notebook-heading">
         <div>
-          <span className="eyebrow">THE RESEARCH MAILBAG · LIS 500</span>
+          <span className="eyebrow">PROJECT STATEMENT · LIS 500</span>
           <h2>
             Behind every little letter,
             <br />a bigger question.
           </h2>
           <p>
-            A home for your group’s methods, findings, and original analysis.
+            Our methods, findings, and analysis, by Nireekshana Shivarathri,
+            Yuthika Goel, and Madeline Root.
           </p>
         </div>
         <BookOpen size={52} strokeWidth={1} />
       </div>
-      <div className="academic-notice">
-        <b>Unfinished student sections</b>
-        <p>
-          The writing spaces below are intentionally empty. Your group supplies
-          the analysis, reflection, citations, training photographs, and
-          demonstration. Design and programming assistance does not fill these
-          academic sections.
-        </p>
-      </div>
-      <div className="notebook-grid">
-        <article className="notebook-card">
-          <span className="eyebrow">01 / THE FIRST LETTER</span>
-          <h3>Introduction & research question</h3>
-          <WritingSlot
-            value={project.introduction}
-            prompt="Write your group's project introduction and explain what you decided to investigate."
-          />
-          <h4>Our research question</h4>
-          <WritingSlot
-            value={project.researchQuestion}
-            prompt="Add your group's own research question."
-          />
-        </article>
-        <article className="notebook-card">
-          <span className="eyebrow">02 / COLLECTING THE MAIL</span>
-          <h3>Dataset & collection</h3>
-          <div className="planned-stats">
-            <div>
-              <b>300</b>
-              <span>original images planned</span>
+      <div className="statement-layout">
+        <nav className="statement-toc" aria-label="Project statement sections">
+          <span className="eyebrow">IN THIS STATEMENT</span>
+          <ol>
+            {sections.map((s) => (
+              <li key={s.id}>
+                <a href={`#${s.id}`}>
+                  <b>{s.number}</b>
+                  {s.title}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+        <div className="statement-body">
+          <article className="statement-section" id="statement-intro">
+            <span className="eyebrow">01 / THE FIRST LETTER</span>
+            <h3>Introduction & research question</h3>
+            <WritingSlot
+              value={project.introduction}
+              prompt="Write your group's project introduction and explain what you decided to investigate."
+            />
+            <div className="research-question">
+              <h4>Our research question</h4>
+              <WritingSlot
+                value={project.researchQuestion}
+                prompt="Add your group's own research question."
+              />
             </div>
-            <div>
-              <b>3</b>
-              <span>group members</span>
+          </article>
+          <article className="statement-section" id="statement-dataset">
+            <span className="eyebrow">02 / COLLECTING THE MAIL</span>
+            <h3>Dataset & collection</h3>
+            <div className="statement-panel">
+              <div className="planned-stats">
+                {project.dataset.map((d) => (
+                  <div key={d.language}>
+                    <span
+                      className={`script-stamp ${d.language.toLowerCase()}`}
+                      aria-hidden="true"
+                    >
+                      {d.glyph}
+                    </span>
+                    <b>
+                      {d.training} + {d.test}
+                    </b>
+                    <span>
+                      {d.language}: {d.training} training, {d.test} test
+                      <br />
+                      by {d.contributor}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <span className="plan-label">
+                {project.dataset.reduce((n, d) => n + d.training, 0)} TRAINING
+                · {project.dataset.reduce((n, d) => n + d.test, 0)} HELD-OUT
+                TEST · ALL PHOTOGRAPHED BY US
+              </span>
             </div>
-            <div>
-              <b>100</b>
-              <span>images per person planned</span>
+            <WritingSlot
+              value={project.collection}
+              prompt="Document your actual collection process, contributors, class counts, and original-photo ownership. Update the planned numbers only when verified."
+            />
+            <WritingSlot
+              value={project.methodology}
+              prompt="Describe your actual sampling choices, handwriting, backgrounds, lighting and consent. Include how you kept test images separate from training images."
+            />
+          </article>
+          <article className="statement-section" id="statement-training">
+            <span className="eyebrow">03 / TEACHING THE SORTER</span>
+            <h3>Model training & testing</h3>
+            <WritingSlot
+              value={project.training}
+              prompt="Record your actual training settings, model versions, class labels, and changes made between trials."
+            />
+            <div className="metric-table">
+              <div>
+                <span>Training images (V3)</span>
+                <b>{project.metrics.collectedImages || "Not recorded"}</b>
+              </div>
+              <div>
+                <span>Held-out test images</span>
+                <b>{project.metrics.heldOutImages || "Not recorded"}</b>
+              </div>
+              <div>
+                <span>Measured test accuracy</span>
+                <b>{project.metrics.accuracy || "Not recorded"}</b>
+              </div>
             </div>
-          </div>
-          <span className="plan-label">
-            COLLECTION PLAN · NOT A COMPLETED DATASET
-          </span>
-          <WritingSlot
-            value={project.collection}
-            prompt="Document your actual collection process, contributors, class counts, and original-photo ownership. Update the planned numbers only when verified."
-          />
-          <WritingSlot
-            value={project.methodology}
-            prompt="Describe your actual sampling choices, handwriting, backgrounds, lighting and consent. Include how you kept test images separate from training images."
-          />
-        </article>
-        <article className="notebook-card">
-          <span className="eyebrow">03 / TEACHING THE SORTER</span>
-          <h3>Model training & testing</h3>
-          <WritingSlot
-            value={project.training}
-            prompt="Record your actual training settings, model versions, class labels, and changes made between trials."
-          />
-          <div className="metric-table">
-            <div>
-              <span>Images actually collected</span>
-              <b>{project.metrics.collectedImages || "Not recorded"}</b>
+            <WritingSlot
+              value={project.testing}
+              prompt="Write your own test procedure and measured results. Add real examples, class-level outcomes, and any failed trials; do not invent metrics."
+            />
+          </article>
+          <article className="statement-section" id="statement-limitations">
+            <span className="eyebrow">04 / LETTERS THAT GOT LOST</span>
+            <h3>Limitations, bias & misclassifications</h3>
+            <WritingSlot
+              value={project.limitations}
+              prompt="Analyze your actual errors and observed limitations. Add original examples and explain what your evidence does and does not show."
+            />
+          </article>
+          <article className="statement-section" id="statement-ethics">
+            <span className="eyebrow">05 / MORE THAN A STAMP</span>
+            <h3>Ethics & language recognition</h3>
+            <WritingSlot
+              value={project.ethics}
+              prompt="Write your group's own ethical discussion of language recognition, its possible uses, affected people, and relevant issues raised by your experiment."
+            />
+          </article>
+          <article
+            className="statement-section reading-section"
+            id="statement-reading"
+          >
+            <span className="eyebrow">06 / THE READING ROOM</span>
+            <h3>In conversation with LIS 500</h3>
+            <div className="reading-tag">
+              <BookOpen size={16} />
+              <span>
+                Joy Buolamwini · <i>Unmasking AI</i>
+              </span>
             </div>
-            <div>
-              <span>Held-out test images</span>
-              <b>{project.metrics.heldOutImages || "Not recorded"}</b>
-            </div>
-            <div>
-              <span>Measured test accuracy</span>
-              <b>{project.metrics.accuracy || "Not recorded"}</b>
-            </div>
-          </div>
-          <WritingSlot
-            value={project.testing}
-            prompt="Write your own test procedure and measured results. Add real examples, class-level outcomes, and any failed trials; do not invent metrics."
-          />
-        </article>
-        <article className="notebook-card">
-          <span className="eyebrow">04 / LETTERS THAT GOT LOST</span>
-          <h3>Limitations, bias & misclassifications</h3>
-          <WritingSlot
-            value={project.limitations}
-            prompt="Analyze your actual errors and observed limitations. Add original examples and explain what your evidence does and does not show."
-          />
-        </article>
-        <article className="notebook-card">
-          <span className="eyebrow">05 / MORE THAN A STAMP</span>
-          <h3>Ethics & language recognition</h3>
-          <WritingSlot
-            value={project.ethics}
-            prompt="Write your group's own ethical discussion of language recognition, its possible uses, affected people, and relevant issues raised by your experiment."
-          />
-        </article>
-        <article className="notebook-card reading-card">
-          <span className="eyebrow">READING ROOM / YOUR ORIGINAL ANALYSIS</span>
-          <h3>In conversation with LIS 500</h3>
-          <div className="reading-tag">
-            <BookOpen size={16} />
-            <span>
-              Joy Buolamwini · <i>Unmasking AI</i>
-            </span>
-          </div>
-          <WritingSlot
-            value={project.readings}
-            prompt="Write your original analysis connecting your experiment to Unmasking AI and other assigned LIS 500 readings. Supply your own interpretation and verify page numbers, quotations, and citations."
-          />
-          <h4>References</h4>
-          <WritingSlot
-            value={project.references}
-            prompt="Add the actual course readings and sources your group cites. No quotations or citations have been invented for you."
-          />
-        </article>
+            <WritingSlot
+              value={project.readings}
+              prompt="Write your original analysis connecting your experiment to Unmasking AI and other assigned LIS 500 readings. Supply your own interpretation and verify page numbers, quotations, and citations."
+            />
+          </article>
+          <article className="statement-section" id="statement-ai">
+            <span className="eyebrow">07 / A NOTE ON AI USE</span>
+            <h3>How we used AI</h3>
+            <WritingSlot
+              value={project.aiUsage}
+              prompt="Describe how your group used AI tools in this project."
+            />
+          </article>
+        </div>
       </div>
       <ProjectLinks />
-      <div className="editing-note">
-        <PenIcon /> Edit all writing slots in{" "}
-        <code>src/content/project.ts</code> · Add your video, repository and
-        dataset links in <code>src/config.ts</code>
-      </div>
     </section>
   );
 }
@@ -298,7 +339,7 @@ function LinkCard({
 function ProjectLinks() {
   return (
     <section className="notebook-card links-section" id="project-links">
-      <span className="eyebrow">06 / RETURN ADDRESSES</span>
+      <span className="eyebrow">08 / RETURN ADDRESSES</span>
       <h2>Find our work.</h2>
       <p className="section-description">
         The code behind this site and the images we trained our model on.
@@ -323,7 +364,4 @@ function ProjectLinks() {
       </div>
     </section>
   );
-}
-function PenIcon() {
-  return <span aria-hidden="true">✎</span>;
 }

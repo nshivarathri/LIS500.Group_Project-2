@@ -370,7 +370,7 @@ export default function App() {
             onClick={() => navigate("notebook")}
             className={view === "notebook" ? "active" : ""}
           >
-            Research mailbag <BookOpen size={13} />
+            Project statement <BookOpen size={13} />
           </button>
         </nav>
         <button
@@ -908,11 +908,11 @@ export default function App() {
             <h3>Small post office. Bigger questions.</h3>
             <p>
               Our dataset, methods, findings, and original LIS 500 writing
-              belong in the research mailbag.
+              are in our project statement.
             </p>
           </div>
           <button onClick={() => navigate("notebook")}>
-            Open the research mailbag <ArrowUpRight size={15} />
+            Read the project statement <ArrowUpRight size={15} />
           </button>
         </section>
       </div>
@@ -1004,12 +1004,12 @@ export default function App() {
           close={() => setModal(false)}
         >
           <div className="eyebrow">
-            YOUR GOOGLE TEACHABLE MACHINE IMAGE MODEL
+            OUR GOOGLE TEACHABLE MACHINE IMAGE MODEL
           </div>
           <p>
-            The final model has not been trained yet. The collection plan is{" "}
-            <b>300 original images from three group members, 100 per person</b>.
-            No training photographs or invented predictions are included.
+            This page runs our <b>V3 model</b>, trained in Google Teachable
+            Machine on <b>322 of our own handwriting photos</b> in Hindi, Telugu
+            and English, and tested on 9 held-out images.
           </p>
           <div className="model-card">
             <label htmlFor="model-url">
@@ -1051,9 +1051,8 @@ export default function App() {
               </p>
             )}
             <small>
-              Set a permanent default in <code>src/config.ts</code>. Local model
-              files can live in <code>public/model/</code>. Connect again after
-              refreshing.
+              You can try a different exported Teachable Machine image model
+              here. It resets to our model when the page is refreshed.
             </small>
           </div>
           <p>
