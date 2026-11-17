@@ -79,7 +79,7 @@ It also connects to Code and Power because the model's results are not just some
 categories, collected the examples, decided what went into training, and decided how to test it. Seeing a label with something like 99% 
 confidence can make the result look objective, even though we had examples where a 99% confident answer was actually wrong.`,
 
-  references: ,
+  references: "", // TODO: add references (course readings, Teachable Machine, repo and dataset links)
 
   contributors: [
     "Nireekshana Shivarathri",

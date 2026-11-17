@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Mail,
   ArrowRight,
   ArrowUpRight,
   Upload,
   Camera,
-  PenLine,
   Check,
   LoaderCircle,
   Heart,
@@ -17,7 +16,6 @@ import {
   Settings2,
 } from "lucide-react";
 import Bunny from "./components/Bunny";
-import HandwritingPad, { type PadApi } from "./components/HandwritingPad";
 import PostalScene, { type PostalPhase } from "./components/PostalScene";
 import ResearchNotebook, { Video } from "./components/ResearchNotebook";
 import Modal from "./components/Modal";
@@ -30,7 +28,7 @@ import {
   type ImageModel,
   type Prediction,
 } from "./lib/model";
-type Mode = "upload" | "draw" | "camera";
+type Mode = "upload" | "camera";
 type Delivery = {
   id: number;
   src: string;
@@ -46,7 +44,6 @@ export default function App() {
     [mode, setMode] = useState<Mode>("upload");
   const [src, setSrc] = useState(""),
     [filename, setFilename] = useState(""),
-    [hasInk, setHasInk] = useState(false),
     [busy, setBusy] = useState(false),
     [phase, setPhase] = useState<PostalPhase>("idle");
   const [result, setResult] = useState<Delivery | null>(null),
@@ -71,8 +68,7 @@ export default function App() {
     [feedbackOpen, setFeedbackOpen] = useState(false),
     [expected, setExpected] = useState(""),
     [note, setNote] = useState("");
-  const pad = useRef<PadApi | null>(null),
-    file = useRef<HTMLInputElement>(null),
+  const file = useRef<HTMLInputElement>(null),
     video = useRef<HTMLVideoElement>(null),
     stream = useRef<MediaStream | null>(null),
     model = useRef<ImageModel | null>(null),
@@ -104,9 +100,6 @@ export default function App() {
   useEffect(() => {
     if (experiment.modelUrl.trim()) void connect(experiment.modelUrl);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  const onPadReady = useCallback((api: PadApi | null) => {
-    pad.current = api;
   }, []);
   function stopCamera() {
     cameraEpoch.current++;
@@ -244,11 +237,11 @@ export default function App() {
   async function sort() {
     if (scanLock.current) return;
     setError("");
-    if (mode === "draw" ? !pad.current?.hasInk() : !src) {
+    if (!src) {
       setError(
         mode === "camera"
           ? "Take a photo of your letter first."
-          : "A letter first, please. Upload a photo or write a note.",
+          : "A letter first, please. Upload a photo or use the camera.",
       );
       return;
     }
@@ -269,9 +262,7 @@ export default function App() {
     setResult(null);
     setFeedbackOpen(false);
     try {
-      const input = prepareInput(
-        mode === "draw" ? pad.current!.canvas : await imageFromUrl(src),
-      );
+      const input = prepareInput(await imageFromUrl(src));
       const started = performance.now();
       const predictions = validatePredictions(
         await model.current.predict(input, false),
@@ -284,7 +275,7 @@ export default function App() {
       const delivery: Delivery = {
         id: nextId.current++,
         src: input.toDataURL("image/png"),
-        name: mode === "draw" ? "Your handwritten note" : filename,
+        name: filename,
         predictions,
         time: new Date().toLocaleString(),
       };
@@ -504,7 +495,7 @@ export default function App() {
                 <Mail size={18} />
                 <p>
                   <b>The post office is waiting for its training.</b> You can
-                  draw, upload, and capture letters now. Real predictions start
+                  upload and capture letters now. Real predictions start
                   after you connect your trained Teachable Machine model.
                 </p>
                 <button onClick={() => setModal(true)}>
@@ -522,7 +513,6 @@ export default function App() {
                 {(
                   [
                     { id: "upload", label: "Upload a letter", icon: Upload },
-                    { id: "draw", label: "Write a note", icon: PenLine },
                     { id: "camera", label: "Camera", icon: Camera },
                   ] as const
                 ).map((t) => (
@@ -602,27 +592,6 @@ export default function App() {
                 </div>
               </div>
               <div
-                id="panel-draw"
-                role="tabpanel"
-                aria-labelledby="tab-draw"
-                hidden={mode !== "draw"}
-              >
-                <HandwritingPad
-                  disabled={busy}
-                  onReady={onPadReady}
-                  onChange={(value) => {
-                    setHasInk(value);
-                    setResult(null);
-                    setPhase("idle");
-                  }}
-                />
-                {hasInk && (
-                  <span className="ink-status">
-                    <Check size={12} /> Your little note is ready.
-                  </span>
-                )}
-              </div>
-              <div
                 id="panel-camera"
                 role="tabpanel"
                 aria-labelledby="tab-camera"
@@ -680,11 +649,7 @@ export default function App() {
                 <span>
                   <Heart size={11} /> Photos stay in your browser.
                 </span>
-                <span>
-                  {mode === "draw"
-                    ? "Made with p5.js & a little care."
-                    : "A clear photo helps a little."}
-                </span>
+                <span>A clear photo helps a little.</span>
               </div>
             </div>
             <div
@@ -877,7 +842,7 @@ export default function App() {
           <div className="section-heading">
             <div>
               <span className="eyebrow">02 / EVERY HELLO HAS A WAY HOME</span>
-              <h2>Three ways to send a little letter.</h2>
+              <h2>Two ways to send a little letter.</h2>
               <p>Your own handwriting. Your own hello.</p>
             </div>
             <span className="handwritten">sent with love, obviously. ♡</span>
@@ -891,13 +856,6 @@ export default function App() {
                   sub: "From paper to post.",
                   color: "blue",
                   icon: Upload,
-                },
-                {
-                  mode: "draw",
-                  title: "Dear Oscbunny…",
-                  sub: "Make your mark.",
-                  color: "pink",
-                  icon: PenLine,
                 },
                 {
                   mode: "camera",
@@ -932,11 +890,9 @@ export default function App() {
                 </div>
                 <div className="postcard-bottom">
                   <span>
-                    {c.mode === "draw"
-                      ? "Open the p5 writing paper"
-                      : c.mode === "upload"
-                        ? "Choose an original handwriting photo"
-                        : "Open the camera counter"}
+                    {c.mode === "upload"
+                      ? "Choose an original handwriting photo"
+                      : "Open the camera counter"}
                   </span>
                   <ArrowUpRight size={17} />
                 </div>
@@ -1101,7 +1057,7 @@ export default function App() {
             </small>
           </div>
           <p>
-            Photos and drawings are processed on your device. Connecting
+            Photos are processed on your device. Connecting
             downloads model files and libraries; your letter is not sent to a
             prediction server.
           </p>
@@ -1117,11 +1073,11 @@ export default function App() {
           <details>
             <summary>Preparing input consistently</summary>
             <p>
-              Every input is fitted onto a square white sheet without cutting
-              off the edges, then passed to the Teachable Machine model. Use
-              comparable framing and backgrounds when collecting and testing
-              your original photos. The p5 handwriting pad exports its canvas
-              directly.
+              Every photo is cropped to its centre square, the same way
+              Teachable Machine crops training images, then passed to the
+              model. Edges of very wide or tall photos are cut off, so keep the
+              writing near the middle. Use comparable framing and backgrounds
+              when collecting and testing your original photos.
             </p>
           </details>
           <div className="modal-bottom">
