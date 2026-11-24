@@ -56,10 +56,17 @@ One result showed the change especially well. In V2 our first Telugu test image 
 
 We thought that was really interesting because we did not suddenly build a completely different type of AI. We mostly changed the examples that the model learned from. Our result on the same small test set went from 3 out of 9 to 7 out of 9.
 
-After receiving feedback, we continued experimenting with our model to see if we could improve our results.
+After another group gave us recommendations to improve our design, we experimented with our model to see if we could get better results.
+
 We increased our dataset to 398 images, but the model only got 6 out of 9 correct.
-We then created a completely balanced dataset of 471 images, which surprisingly only got 5 out of 9 correct.
-We also experimented with smaller datasets, cropped images and different training settings. However, none of them performed better than V3. We realized that having more images or an equal number of images for each language does not necessarily make a model better. So, we decided to keep V3 as our final model because it performed the best on the same nine test images.`,
+
+Then we created a completely balanced dataset of 471 images, which only got 5 out of 9 correct.
+
+We also experimented with smaller datasets, cropped images and even different training settings. However, none of them performed better than V3.
+
+We realized that having more images or an equal number of images for each language did not necessarily make the model better.
+
+So, we decided to keep V3 as our final model because it performed the best on the same nine test images.`,
 
 
   limitations: `At the same time we do not think our final result means that our model is just 77.8% accurate. We only tested nine held out images. That is a very small test. If we gave it 100 completely new images from different people then we might get a very different result.
@@ -98,23 +105,21 @@ We named one class "Telugu." But the model was not somehow given an understandin
 
 The same is true for Hindi and English.
 
-Another connection we made to Buolamwini's work came from our experiments after receiving feedback.
+Another connection to Buolamwini's work came from our experiments after we received feedback from others taking the course.
 
-Even when we gave the model the exact same number of images for each language, it still struggled to recognize
+After the feedback, even when we gave the model the exact same number of images for each language, it still struggled to recognize them equally. We had not originally considered how the paper types and even the amount of text in each image could influence the outcome.
 
-them equally. We had not originally considered how our own decisions about handwriting styles, paper types and
+In her TED Talk, How I'm Fighting Bias in Algorithms, Buolamwini says, “However, if the training sets aren’t really that diverse, any face that deviates too much from the established norm will be harder to detect.” We actually saw something extremely similar in our project when the model struggled to recognize handwriting that differed from our examples.
 
-the amount of text in each image could influence our results. This also connects to Buolamwini's discussion of why
+This also connects to Buolamwini's discussion of why we should not just look at the overall accuracy of a model. In our case, a model could perform really well with one language and still really struggle with another. We think one of the biggest takeaways from this project was realizing that
 
-we should not just look at the overall accuracy of a model. In our case, a model could perform really well with one
+even though we were treating all three languages equally, our model did not reflect that unfortunately.
 
-language and still struggle with another. We think one of the biggest takeaways from this project was realizing that
+That really made us understand the problem of representation in AI firsthand.
 
-even though we were treating all three languages equally, our model did not reflect that.
+If some types of examples are missing from a dataset then the system does not magically understand them.
 
-That really made us understand the problem of representation in AI better. If certain people or certain types of examples are missing from the data then the system does not magically understand them anyway.
-
-It learned from what somebody chose to give it.
+It learned from what somebody chooses to give it.
 
 Another part of Unmasking AI that stayed with us during this project was the idea of questioning AI systems instead of automatically trusting them because they look technical or objective.
 
@@ -134,7 +139,7 @@ Then getting 7 out of 9 after changing our dataset showed us that the data reall
 
 Before this assignment we mostly thought about machine learning in terms of whether a model gives the correct answer. Now we think there are more questions we would ask. What was it trained on? Who created that data? What is missing from it? Has it actually been tested on something different from its training data? What does the confidence score really mean? Who might the model work well for and who might it fail for?
 
-For us that is the biggest connection between this project and Unmasking AI. Building a model was useful. But seeing how easily our own choices affected what the model learned was much more useful. It made AI feel less like some independent system that just knows things and more like something that reflects the examples and decisions that people put into it.`,
+For us, that's really the biggest connection between this project and Unmasking AI. Building a model was useful. But seeing how easily our own choices affected what the model learned was much more useful. It made AI feel less like some independent system that just knows things and more like something that reflects the examples and decisions that people put into it.`,
 
   aiUsage: `We used an AI assistant (Claude, made by Anthropic) to help us redesign and build this website. It helped with the page layout and visual design, the website code, setting up our Teachable Machine model on this page, and fixing bugs, such as how photos are prepared before they are sent to the model. It also helped us organize our dataset files on GitHub.
 
