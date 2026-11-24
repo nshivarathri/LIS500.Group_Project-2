@@ -56,7 +56,11 @@ One result showed the change especially well. In V2 our first Telugu test image 
 
 We thought that was really interesting because we did not suddenly build a completely different type of AI. We mostly changed the examples that the model learned from. Our result on the same small test set went from 3 out of 9 to 7 out of 9.
 
-That showed us how much power the training data actually has.`,
+After receiving feedback, we continued experimenting with our model to see if we could improve our results.
+We increased our dataset to 398 images, but the model only got 6 out of 9 correct.
+We then created a completely balanced dataset of 471 images, which surprisingly only got 5 out of 9 correct.
+We also experimented with smaller datasets, cropped images and different training settings. However, none of them performed better than V3. We realized that having more images or an equal number of images for each language does not necessarily make a model better. So, we decided to keep V3 as our final model because it performed the best on the same nine test images.`,
+
 
   limitations: `At the same time we do not think our final result means that our model is just 77.8% accurate. We only tested nine held out images. That is a very small test. If we gave it 100 completely new images from different people then we might get a very different result.
 
@@ -94,7 +98,23 @@ We named one class "Telugu." But the model was not somehow given an understandin
 
 The same is true for Hindi and English.
 
-That made us understand the problem of representation in AI better. If certain people or certain types of examples are missing from the data then the system does not magically understand them anyway. It learned from what somebody chose to give it.
+Another connection we made to Buolamwini's work came from our experiments after receiving feedback.
+
+Even when we gave the model the exact same number of images for each language, it still struggled to recognize
+
+them equally. We had not originally considered how our own decisions about handwriting styles, paper types and
+
+the amount of text in each image could influence our results. This also connects to Buolamwini's discussion of why
+
+we should not just look at the overall accuracy of a model. In our case, a model could perform really well with one
+
+language and still struggle with another. We think one of the biggest takeaways from this project was realizing that
+
+even though we were treating all three languages equally, our model did not reflect that.
+
+That really made us understand the problem of representation in AI better. If certain people or certain types of examples are missing from the data then the system does not magically understand them anyway.
+
+It learned from what somebody chose to give it.
 
 Another part of Unmasking AI that stayed with us during this project was the idea of questioning AI systems instead of automatically trusting them because they look technical or objective.
 
