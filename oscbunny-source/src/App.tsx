@@ -28,28 +28,58 @@ import {
   type ImageModel,
   type Prediction,
 } from "./lib/model";
+/**
+ * App.tsx: the whole Teachable Machine ("Oscbunny") page.
+ *
+ * How a prediction works, end to end:
+ *   1. On page load, connect() downloads our trained Teachable Machine model
+ *      (link set in src/config.ts) using loadModel() from lib/model.ts.
+ *   2. The visitor adds a handwriting photo, either by uploading a file
+ *      (upload()) or taking a picture with the webcam (startCamera() then
+ *      capture()). The photo is held in `src` as a browser-local URL.
+ *   3. sort() crops the photo to a centre square (prepareInput()), asks the
+ *      model for a score for every class (Hindi / Telugu / English), and shows
+ *      the result as a "delivery slip".
+ *   4. Each result is also saved to `history` ("My deliveries") for this visit
+ *      only. Nothing is uploaded to a server; the model runs in the browser.
+ *
+ * The page has three views (post office, deliveries, project statement),
+ * switched with navigate() rather than separate HTML pages.
+ */
+
+/** Where the visitor's photo comes from. */
 type Mode = "upload" | "camera";
+/** One classified photo, as shown on the delivery slip and in "My deliveries". */
 type Delivery = {
-  id: number;
-  src: string;
-  name: string;
-  predictions: Prediction[];
-  time: string;
-  feedback?: { expected: string; note: string };
+  id: number; // running number for this visit (DELIVERY 001, 002, ...)
+  src: string; // the cropped image the model actually saw, as a data URL
+  name: string; // file name, or "A letter from the camera"
+  predictions: Prediction[]; // every class with its probability, highest first
+  time: string; // when it was sorted, in the visitor's local format
+  feedback?: { expected: string; note: string }; // optional visitor correction
 };
 export default function App() {
+  // ---- Page state ----
+  // view: which of the three views is showing. mode: upload tab or camera tab.
   const [view, setView] = useState<"office" | "deliveries" | "notebook">(
       "office",
     ),
     [mode, setMode] = useState<Mode>("upload");
+  // src/filename: the current photo. busy: a prediction is running.
+  // phase: drives the bunny animation (idle -> sorting -> delivered/error).
   const [src, setSrc] = useState(""),
     [filename, setFilename] = useState(""),
     [busy, setBusy] = useState(false),
     [phase, setPhase] = useState<PostalPhase>("idle");
+  // result: the slip currently shown. history: up to 20 past results.
+  // drag: true while a file is being dragged over the upload box.
   const [result, setResult] = useState<Delivery | null>(null),
     [history, setHistory] = useState<Delivery[]>([]),
     [error, setError] = useState(""),
     [drag, setDrag] = useState(false);
+  // Model state. modal: the "brains behind the bunny" dialog is open.
+  // modelUrl: the link typed in that dialog (starts as our config.ts link).
+  // labels: the model's class names; once filled, the model is connected.
   const [modal, setModal] = useState(false),
     [modelUrl, setModelUrl] = useState(experiment.modelUrl),
     [modelError, setModelError] = useState(""),
@@ -59,26 +89,36 @@ export default function App() {
       Boolean(experiment.modelUrl.trim()),
     ),
     [labels, setLabels] = useState<string[]>([]);
+  // Webcam state.
   const [cameraOn, setCameraOn] = useState(false),
     [cameraStarting, setCameraStarting] = useState(false),
     [cameraError, setCameraError] = useState("");
+  // motion: decorative animation on/off. It starts off for visitors whose
+  // system asks for reduced motion. The feedback* values belong to the
+  // "Did Oscbunny get it wrong?" form.
   const [motion, setMotion] = useState(
       () => !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
     ),
     [feedbackOpen, setFeedbackOpen] = useState(false),
     [expected, setExpected] = useState(""),
     [note, setNote] = useState("");
-  const file = useRef<HTMLInputElement>(null),
-    video = useRef<HTMLVideoElement>(null),
-    stream = useRef<MediaStream | null>(null),
-    model = useRef<ImageModel | null>(null),
+  // Refs hold values that must survive re-renders without causing one.
+  const file = useRef<HTMLInputElement>(null), // hidden <input type="file">
+    video = useRef<HTMLVideoElement>(null), // live webcam preview
+    stream = useRef<MediaStream | null>(null), // open webcam, so we can stop it
+    model = useRef<ImageModel | null>(null), // the loaded Teachable Machine model
+    // "Epoch" counters: each camera start / model load bumps its counter.
+    // When an older async request finishes late, its epoch no longer matches,
+    // so its result is thrown away instead of overwriting a newer one.
     cameraEpoch = useRef(0),
     modelEpoch = useRef(0),
-    alive = useRef(true),
-    scanLock = useRef(false),
-    nextId = useRef(1),
-    sourceUrl = useRef("");
+    alive = useRef(true), // false after the page unmounts
+    scanLock = useRef(false), // stops double-clicks running two predictions
+    nextId = useRef(1), // next delivery number
+    sourceUrl = useRef(""); // blob: URL to free when the photo is replaced
   const connected = labels.length > 0;
+  // Clean-up when the page closes: stop the webcam, cancel pending loads and
+  // free the uploaded photo's memory.
   useEffect(() => {
     alive.current = true;
     return () => {
@@ -89,6 +129,7 @@ export default function App() {
       if (sourceUrl.current) URL.revokeObjectURL(sourceUrl.current);
     };
   }, []);
+  // Follow the visitor's system "reduce motion" setting if it changes.
   useEffect(() => {
     const media = matchMedia("(prefers-reduced-motion: reduce)");
     const change = () => setMotion(!media.matches);
@@ -101,6 +142,7 @@ export default function App() {
     if (experiment.modelUrl.trim()) void connect(experiment.modelUrl);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  /** Turns the webcam off and releases it so the camera light goes out. */
   function stopCamera() {
     cameraEpoch.current++;
     stream.current?.getTracks().forEach((t) => t.stop());
@@ -109,11 +151,13 @@ export default function App() {
     setCameraOn(false);
     setCameraStarting(false);
   }
+  /** Switches between the three views and scrolls back to the top. */
   function navigate(next: typeof view) {
     stopCamera();
     setView(next);
     window.scrollTo({ top: 0, behavior: motion ? "smooth" : "auto" });
   }
+  /** Switches between the Upload and Camera tabs and clears the old result. */
   function switchMode(next: Mode) {
     stopCamera();
     setMode(next);
@@ -122,6 +166,7 @@ export default function App() {
     setResult(null);
     setPhase("idle");
   }
+  /** Sets a new photo to classify, freeing the previous uploaded file's memory. */
   function replaceSource(next: string, name: string) {
     if (sourceUrl.current) URL.revokeObjectURL(sourceUrl.current);
     sourceUrl.current = next.startsWith("blob:") ? next : "";
@@ -131,6 +176,8 @@ export default function App() {
     setPhase("idle");
     setError("");
   }
+  /** Handles a chosen or dropped file: checks it is an image under 20 MB and
+   * that the browser can decode it, then makes it the current photo. */
   async function upload(image: File) {
     if (busy) return;
     if (!image.type.startsWith("image/")) {
@@ -141,9 +188,10 @@ export default function App() {
       setError("That letter is a little heavy. Choose an image under 20 MB.");
       return;
     }
+    // A blob: URL lets the browser show the file without uploading it anywhere.
     const url = URL.createObjectURL(image);
     try {
-      await imageFromUrl(url);
+      await imageFromUrl(url); // fails early if the file is not a readable image
       stopCamera();
       setMode("upload");
       replaceSource(url, image.name);
@@ -154,6 +202,9 @@ export default function App() {
       );
     }
   }
+  /** Asks for webcam permission and starts the live preview. Prefers the back
+   * camera on phones ("environment"). Browsers only allow this on HTTPS or
+   * localhost. */
   async function startCamera() {
     const epoch = ++cameraEpoch.current;
     setCameraStarting(true);
@@ -165,6 +216,8 @@ export default function App() {
         video: { facingMode: "environment" },
         audio: false,
       });
+      // The visitor may have switched tabs or left while the permission prompt
+      // was open. If so, close this camera stream straight away.
       if (epoch !== cameraEpoch.current || !alive.current) {
         media.getTracks().forEach((t) => t.stop());
         return;
@@ -183,6 +236,7 @@ export default function App() {
       if (epoch !== cameraEpoch.current) return;
       stream.current?.getTracks().forEach((t) => t.stop());
       stream.current = null;
+      // Turn the browser's error name into a plain-language message.
       const name = e instanceof DOMException ? e.name : "";
       setCameraError(
         name === "NotAllowedError"
@@ -196,6 +250,8 @@ export default function App() {
       if (epoch === cameraEpoch.current) setCameraStarting(false);
     }
   }
+  /** Takes a still from the webcam at full resolution, saves it as a PNG and
+   * makes it the current photo. The camera then turns off. */
   function capture() {
     const v = video.current;
     if (!v?.videoWidth) {
@@ -210,13 +266,16 @@ export default function App() {
     stopCamera();
     setMode("upload");
   }
+  /** Downloads a Teachable Machine model (model.json, metadata.json, weights)
+   * from `url` and keeps it ready for predictions. Runs once on page load with
+   * our model, and again if someone connects a different model in the dialog. */
   async function connect(url = modelUrl) {
     const epoch = ++modelEpoch.current;
     setConnecting(true);
     setModelError("");
     try {
       const next = await loadModel(url);
-      if (!alive.current || epoch !== modelEpoch.current) return;
+      if (!alive.current || epoch !== modelEpoch.current) return; // stale load
       model.current = next;
       setLabels(next.getClassLabels());
       setModal(false);
@@ -234,8 +293,11 @@ export default function App() {
       if (alive.current && epoch === modelEpoch.current) setConnecting(false);
     }
   }
+  /** The main step: runs the current photo through the model and shows the
+   * result. Called by the "Sort my letter" button. */
   async function sort() {
     if (scanLock.current) return;
+    // Check there is a photo and a loaded model before doing anything.
     setError("");
     if (!src) {
       setError(
@@ -262,11 +324,18 @@ export default function App() {
     setResult(null);
     setFeedbackOpen(false);
     try {
+      // Crop to a centre square, the same framing Teachable Machine used on
+      // our training photos (see prepareInput in lib/model.ts).
       const input = prepareInput(await imageFromUrl(src));
       const started = performance.now();
+      // predict() returns one probability per class. `false` = do not mirror
+      // the image. validatePredictions() checks the numbers and sorts them
+      // highest first, so predictions[0] is the model's top guess.
       const predictions = validatePredictions(
         await model.current.predict(input, false),
       );
+      // Purely for the animation: keep the "sorting" bunny on screen for at
+      // least 1.8 s. This does not change the prediction.
       if (motion) {
         const remaining = 1800 - (performance.now() - started);
         if (remaining > 0) await new Promise((r) => setTimeout(r, remaining));
@@ -280,7 +349,7 @@ export default function App() {
         time: new Date().toLocaleString(),
       };
       setResult(delivery);
-      setHistory((h) => [delivery, ...h].slice(0, 20));
+      setHistory((h) => [delivery, ...h].slice(0, 20)); // newest first, max 20
       setPhase("delivered");
     } catch (e) {
       if (alive.current) {
@@ -296,6 +365,8 @@ export default function App() {
       if (alive.current) setBusy(false);
     }
   }
+  /** Saves the visitor's "correct language" note on the current result. This
+   * only records it for this visit; it does NOT retrain the model. */
   function saveFeedback() {
     if (!result || !expected.trim()) return;
     const next = {
@@ -306,6 +377,8 @@ export default function App() {
     setHistory((h) => h.map((d) => (d.id === result.id ? next : d)));
     setFeedbackOpen(false);
   }
+  /** Downloads this visit's results and corrections as a JSON file, so a
+   * tester can keep notes. Photos are left out (`src` is dropped). */
   function exportRecords() {
     const records = history.map(({ src, ...delivery }) => delivery);
     const blob = new Blob(
@@ -329,9 +402,12 @@ export default function App() {
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 0);
   }
-  const top = result?.predictions[0];
+  const top = result?.predictions[0]; // the model's top guess for the current photo
+  // ---- Page layout ----
   return (
     <main className={motion ? "" : "motion-paused"}>
+      {/* Oscbunny's own header and view switcher (the group site's header is
+          added above this by the build script). */}
       <header>
         <a
           className="brand"
@@ -385,6 +461,8 @@ export default function App() {
           <span>{motion ? "Pause motion" : "Motion paused"}</span>
         </button>
       </header>
+      {/* VIEW 1: the post office (hero, demo video, sorting counter). It is
+          hidden rather than removed so the photo and camera survive switching. */}
       <div hidden={view !== "office"}>
         <section className="hero">
           <div className="hero-copy">
@@ -443,10 +521,12 @@ export default function App() {
           </div>
         </section>
         <div className="airmail-rule" />
+        {/* Demonstration video (source set in config.ts). */}
         <div className="home-video">
           <Video />
         </div>
         <div className="airmail-rule" />
+        {/* The sorting counter: the actual classifier interface. */}
         <section id="counter" className="counter">
           <div className="counter-title">
             <div>
@@ -470,6 +550,8 @@ export default function App() {
               <Settings2 size={12} />
             </button>
           </div>
+          {/* Banner shown until the model is ready: loading, failed, or no
+              model link set. */}
           {!connected &&
             (connecting ? (
               <div className="model-placeholder" role="status">
@@ -504,6 +586,7 @@ export default function App() {
               </div>
             ))}
           <div className="counter-grid">
+            {/* LEFT: where the photo comes in (Upload / Camera tabs). */}
             <div className="letter-panel">
               <div
                 className="mode-tabs"
@@ -531,6 +614,7 @@ export default function App() {
                   </button>
                 ))}
               </div>
+              {/* Upload tab: click to choose a file, or drag and drop one. */}
               <div
                 id="panel-upload"
                 role="tabpanel"
@@ -591,6 +675,7 @@ export default function App() {
                   )}
                 </div>
               </div>
+              {/* Camera tab: live preview, then "Take letter photo". */}
               <div
                 id="panel-camera"
                 role="tabpanel"
@@ -652,6 +737,8 @@ export default function App() {
                 <span>A clear photo helps a little.</span>
               </div>
             </div>
+            {/* RIGHT: the delivery slip. Shows the result if there is one,
+                otherwise the "Sort my letter" button. */}
             <div
               className={"sorting-desk " + (result ? "has-result" : "")}
               aria-live="polite"
@@ -667,6 +754,8 @@ export default function App() {
                   <div className="delivery-stamp">
                     LETTER SORTED <Check size={12} />
                   </div>
+                  {/* Below 65% top confidence the bunny sounds unsure. This
+                      only changes the caption, not the predicted label. */}
                   <p className="handwritten result-quote">
                     {top.probability < 0.65
                       ? "“Hmm. A bit of a mystery.”"
@@ -686,6 +775,8 @@ export default function App() {
                     DELIVERY {String(result.id).padStart(3, "0")} ·{" "}
                     {result.time}
                   </p>
+                  {/* Every class's score as a bar, not just the winner, so
+                      close calls are visible. */}
                   <div className="predictions">
                     {result.predictions.map((p) => (
                       <div key={p.className}>
@@ -838,6 +929,7 @@ export default function App() {
             </div>
           </div>
         </section>
+        {/* Two postcards that jump to the Upload or Camera tab. */}
         <section className="sample-section">
           <div className="section-heading">
             <div>
@@ -916,7 +1008,10 @@ export default function App() {
           </button>
         </section>
       </div>
+      {/* VIEW 2: the project statement (components/ResearchNotebook.tsx). */}
       {view === "notebook" && <ResearchNotebook />}
+      {/* VIEW 3: "My deliveries", the results from this visit. Clicking a
+          card reopens it on the delivery slip. */}
       {view === "deliveries" && (
         <section className="deliveries-page">
           <div className="eyebrow">THE LETTERS THAT MADE IT</div>
@@ -987,6 +1082,8 @@ export default function App() {
         </section>
       )}
       {/* The shared group footer is added outside the app by tools/build-oscbunny.mjs. */}
+      {/* Hidden file picker, opened by the upload buttons. Clearing its value
+          lets the same file be chosen twice in a row. */}
       <input
         ref={file}
         className="hidden"
@@ -998,6 +1095,8 @@ export default function App() {
           e.target.value = "";
         }}
       />
+      {/* Model dialog: explains the model and lets a tester load a different
+          exported Teachable Machine image model by URL. */}
       {modal && (
         <Modal
           title="The brains behind the bunny."

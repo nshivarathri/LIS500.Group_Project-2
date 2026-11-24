@@ -13,6 +13,7 @@
     We wanted to keep the format consistent with the other pages as well. We wanted to keep
     it as simple as possible since we are all still learning. 
     -->
+  <!-- Shared stylesheet: all colours, fonts and layout for every page live in stylepage.css (no inline styles). -->
   <link href="stylepage.css" rel="stylesheet"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <link href="site-assets/favicon.svg" rel="icon" type="image/svg+xml"/>
@@ -21,6 +22,7 @@
   <a class="skip-link" href="#main-content">
    Skip to main content
   </a>
+  <!-- Site header: course logo (links home) and the main navigation. The same header is repeated on every page so visitors can always reach any page. -->
   <header class="site-header">
    <a aria-label="LIS 500 Code and Power home" class="site-brand" href="index.html">
     <img alt="" aria-hidden="true" class="course-logo" height="44" src="site-assets/course-mark.svg" width="44"/>
@@ -31,6 +33,7 @@
      </span>
     </span>
    </a>
+   <!-- aria-current="page" marks the page you are on, for screen readers and for the highlighted nav style. -->
    <nav aria-label="Main navigation" class="site-nav">
     <a href="index.html">
      Home
@@ -49,6 +52,7 @@
     </a>
    </nav>
   </header>
+  <!-- Page banner: page title on the left, decorative art on the right. Decorative images use alt="" and aria-hidden so screen readers skip them. -->
   <section aria-labelledby="page-title" class="page-hero">
    <div class="hero-copy">
     <span class="eyebrow">
@@ -76,9 +80,15 @@
     </div>
    </div>
   </section>
+  <!-- Decorative airmail-stripe divider between the banner and the page content. -->
   <div aria-hidden="true" class="airmail-rule">
   </div>
+  <!-- Main page content. id="main-content" is where the skip link jumps to.
+       Each group member's tech hero gets one profile card: a portrait
+       "stamp" on the left and their story on the right (stacked on mobile).
+       Each card ends with an external link to learn more. -->
   <main class="page-content" id="main-content">
+   <!-- Profile 1: Margaret Hamilton (chosen by Maddie) -->
    <div class="page-section hero-profile">
     <div class="hero-portrait">
      <img alt="Margaret Hamilton" class="image-of-tech-hero" src="Margaret_Hamilton_1995.jpg"/>
@@ -112,6 +122,7 @@
      </p>
     </div>
    </div>
+   <!-- Profile 2: Beth Paretta (chosen by Yuthika) -->
    <div class="page-section hero-profile">
     <div class="hero-portrait">
      <img alt="Beth Paretta" class="image-of-tech-hero" src="beth.jpeg"/>
@@ -147,6 +158,7 @@
      </p>
     </div>
    </div>
+   <!-- Profile 3: Rediet Abebe (chosen by Niree) -->
    <div class="page-section hero-profile">
     <div class="hero-portrait">
      <img alt="Rediet Abebe" class="image-of-tech-hero" src="RA.jpeg"/>
@@ -180,6 +192,7 @@
     </div>
    </div>
   </main>
+  <!-- Shared footer with course name and group credits, the same on every page. -->
   <footer class="site-footer">
    <div class="footer-credit">
     <p>

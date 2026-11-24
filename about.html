@@ -20,6 +20,7 @@
     main navigation. The layout is responsive so the profile cards stack vertically
     on smaller screens.
     -->
+  <!-- Shared stylesheet: all colours, fonts and layout for every page live in stylepage.css (no inline styles). -->
   <link href="stylepage.css" rel="stylesheet"/>
   <link href="site-assets/favicon.svg" rel="icon" type="image/svg+xml"/>
  </head>
@@ -28,6 +29,7 @@
   <a class="skip-link" href="#main-content">
    Skip to main content
   </a>
+  <!-- Site header: course logo (links home) and the main navigation. The same header is repeated on every page so visitors can always reach any page. -->
   <header class="site-header">
    <a aria-label="LIS 500 Code and Power home" class="site-brand" href="index.html">
     <img alt="" aria-hidden="true" class="course-logo" height="44" src="site-assets/course-mark.svg" width="44"/>
@@ -38,6 +40,7 @@
      </span>
     </span>
    </a>
+   <!-- aria-current="page" marks the page you are on, for screen readers and for the highlighted nav style. -->
    <nav aria-label="Main navigation" class="site-nav">
     <a href="index.html">
      Home
@@ -56,6 +59,7 @@
     </a>
    </nav>
   </header>
+  <!-- Page banner: page title on the left, decorative art on the right. Decorative images use alt="" and aria-hidden so screen readers skip them. -->
   <section aria-labelledby="page-title" class="page-hero">
    <div class="hero-copy">
     <span class="eyebrow">
@@ -86,9 +90,10 @@
     </div>
    </div>
   </section>
+  <!-- Decorative airmail-stripe divider between the banner and the page content. -->
   <div aria-hidden="true" class="airmail-rule">
   </div>
-  <!-- Main website navigation -->
+  <!-- Main page content. id="main-content" is where the skip link jumps to. -->
   <main class="page-content" id="main-content">
    <section class="about-intro">
     <h2>
@@ -181,6 +186,7 @@
     </article>
    </section>
   </main>
+  <!-- Shared footer with course name and group credits, the same on every page. -->
   <footer class="site-footer">
    <div class="footer-credit">
     <p>

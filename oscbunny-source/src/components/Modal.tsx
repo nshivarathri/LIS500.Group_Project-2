@@ -1,5 +1,14 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { X } from "lucide-react";
+/**
+ * A pop-up dialog (used for the "brains behind the bunny" model panel).
+ * Accessibility behaviour:
+ * - Escape, the X button, or clicking the dark backdrop closes it.
+ * - Tab / Shift+Tab cycle focus inside the dialog ("focus trap"), so keyboard
+ *   users cannot tab into the page behind it.
+ * - The page behind stops scrolling while it is open.
+ * - On close, focus returns to whatever button opened it.
+ */
 export default function Modal({
   title,
   close,
@@ -10,16 +19,21 @@ export default function Modal({
   children: ReactNode;
 }) {
   const box = useRef<HTMLElement>(null),
+    // Keep the latest close() in a ref so the key listener (added once) never
+    // calls an out-of-date version.
     onClose = useRef(close);
   onClose.current = close;
   useEffect(() => {
+    // Remember what had focus and the page's scroll setting, to restore later.
     const previous = document.activeElement as HTMLElement | null;
     const overflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    box.current?.querySelector<HTMLElement>("button")?.focus();
+    box.current?.querySelector<HTMLElement>("button")?.focus(); // focus the X button
     const key = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose.current();
       if (e.key === "Tab") {
+        // Find every visible, focusable element in the dialog and wrap focus
+        // from the last back to the first (and the reverse with Shift).
         const items = Array.from(
           box.current?.querySelectorAll<HTMLElement>(
             "button:not(:disabled),input:not(:disabled),select,summary,a[href]",
@@ -47,6 +61,7 @@ export default function Modal({
     <div
       className="modal-backdrop"
       onMouseDown={(e) => {
+        // Only close on the backdrop itself, not on clicks inside the dialog.
         if (e.target === e.currentTarget) close();
       }}
     >

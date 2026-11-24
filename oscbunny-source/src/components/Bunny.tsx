@@ -1,4 +1,15 @@
 import {useId} from 'react';
+/**
+ * Oscbunny, the mascot, drawn as a hand-built inline SVG (no image file).
+ * Decoration only; it plays no part in classification.
+ * - thinking: adds a CSS class that animates him while a prediction runs.
+ * - small: a smaller version for the delivery slip.
+ * useId() gives each copy unique gradient ids, so two bunnies on the same page
+ * don't share or clash over each other's colour gradients.
+ * Animations live in styles.css, keyed on the class names below: bunny-body
+ * gently "breathes" all the time; while thinking, the ears and the paws
+ * holding the letter (letter-paw) wiggle.
+ */
 export default function Bunny({thinking=false,small=false}:{thinking?:boolean;small?:boolean}){const id=useId().replace(/:/g,'');return <svg className={`bunny cozy-bunny ${thinking?'thinking':''} ${small?'mini':''}`} viewBox="0 0 430 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Oscbunny, a fluffy blushy lop-eared bunny loaf with 81 on his papaya hat, cuddling a letter" role="img">
 <defs><radialGradient id={`${id}fur`} cx=".38" cy=".25" r=".85"><stop stopColor="#fffdf5"/><stop offset=".65" stopColor="#f9ecd7"/><stop offset="1" stopColor="#ead2b0"/></radialGradient><linearGradient id={`${id}ear`} x1="0" y1="0" x2="1" y2="1"><stop stopColor="#dbc4a4"/><stop offset=".5" stopColor="#cdb18f"/><stop offset="1" stopColor="#bfa07f"/></linearGradient><radialGradient id={`${id}blush`}><stop stopColor="#efa8a7" stopOpacity=".85"/><stop offset=".55" stopColor="#f2b4ae" stopOpacity=".55"/><stop offset="1" stopColor="#f3c7b9" stopOpacity="0"/></radialGradient><linearGradient id={`${id}cap`} x1="0" y1="0" x2=".6" y2="1"><stop stopColor="#f8b06f"/><stop offset="1" stopColor="#e99151"/></linearGradient></defs>
 <ellipse cx="226" cy="324" rx="157" ry="14" fill="#c5a47e" opacity=".16"/>
