@@ -3,7 +3,6 @@ import {
   BookOpen,
   Film,
   ArrowUpRight,
-  FileText,
   CodeXml,
   FolderOpen,
 } from "lucide-react";
@@ -116,15 +115,6 @@ export function Video() {
           Open the demonstration <ArrowUpRight size={13} />
         </a>
       )}
-      <details>
-        <summary>
-          <FileText size={14} /> Demonstration transcript
-        </summary>
-        <WritingSlot
-          value={experiment.demoTranscript}
-          prompt="Add your group's own transcript in src/config.ts. Include captions for your video."
-        />
-      </details>
     </section>
   );
 }
