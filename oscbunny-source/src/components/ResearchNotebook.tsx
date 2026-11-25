@@ -127,7 +127,8 @@ const sections = [
   { id: "statement-ethics", number: "05", title: "Ethics" },
   { id: "statement-reading", number: "06", title: "Reading room" },
   { id: "statement-ai", number: "07", title: "AI use" },
-  { id: "project-links", number: "08", title: "Find our work" },
+  { id: "statement-reflection", number: "08", title: "Group reflection" },
+  { id: "project-links", number: "09", title: "Find our work" },
 ];
 export default function ResearchNotebook() {
   return (
@@ -283,6 +284,14 @@ export default function ResearchNotebook() {
               prompt="Describe how your group used AI tools in this project."
             />
           </article>
+          <article className="statement-section" id="statement-reflection">
+           <span className="eyebrow">08 / LOOKING BACK TOGETHER</span>
+           <h3>Group Reflection</h3>
+           <WritingSlot
+             value={project.groupReflection}
+             prompt="Our group reflection."
+           />
+         </article>
         </div>
       </div>
       <ProjectLinks />
@@ -329,7 +338,7 @@ function LinkCard({
 function ProjectLinks() {
   return (
     <section className="notebook-card links-section" id="project-links">
-      <span className="eyebrow">08 / RETURN ADDRESSES</span>
+      <span className="eyebrow">09 / RETURN ADDRESSES</span>
       <h2>Find our work.</h2>
       <p className="section-description">
         The code behind this site and the images we trained our model on.
