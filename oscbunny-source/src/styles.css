@@ -64,6 +64,7 @@ nav button{font-size:12px}.eyebrow{font-size:9px;color:#92785f}.hero-copy>p{font
 .statement-section .student-prose p:last-child{margin-bottom:0}
 .statement-section .student-prose+.student-prose{margin-top:1.15em}
 .statement-section .writing-slot{max-width:68ch}
+.design-choices{margin-top:36px;padding-top:28px;border-top:1px dashed #eadfcb;max-width:68ch}
 .research-question{margin-top:26px;padding:20px 24px;background:#fbf3e6;border-left:3px solid #e6aa7c;border-radius:0 8px 8px 0;max-width:68ch}
 .research-question .student-prose{font-size:15.5px;color:#6d5545}
 .statement-panel{background:#fbf5ea;border:1px solid #eadfcb;border-radius:8px;padding:22px 24px 16px;margin:0 0 28px}

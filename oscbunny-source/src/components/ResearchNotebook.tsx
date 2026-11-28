@@ -291,6 +291,13 @@ export default function ResearchNotebook() {
              value={project.groupReflection}
              prompt="Our group reflection."
            />
+           <div className="design-choices">
+             <h4>Design choices</h4>
+             <WritingSlot
+               value={project.designChoices}
+               prompt="Explain the design choices behind this website and the classifier: layout, visual style, how results and confidence scores are shown, accessibility, and why you made them."
+             />
+           </div>
          </article>
         </div>
       </div>
