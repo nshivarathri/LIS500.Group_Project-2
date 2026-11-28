@@ -126,9 +126,10 @@ const sections = [
   { id: "statement-limitations", number: "04", title: "Limitations" },
   { id: "statement-ethics", number: "05", title: "Ethics" },
   { id: "statement-reading", number: "06", title: "Reading room" },
-  { id: "statement-ai", number: "07", title: "AI use" },
-  { id: "statement-reflection", number: "08", title: "Group reflection" },
-  { id: "project-links", number: "09", title: "Find our work" },
+  { id: "statement-design", number: "07", title: "Design choices" },
+  { id: "statement-ai", number: "08", title: "AI use" },
+  { id: "statement-reflection", number: "09", title: "Group reflection" },
+  { id: "project-links", number: "10", title: "Find our work" },
 ];
 export default function ResearchNotebook() {
   return (
@@ -276,8 +277,16 @@ export default function ResearchNotebook() {
               prompt="Write your original analysis connecting your experiment to Unmasking AI and other assigned LIS 500 readings. Supply your own interpretation and verify page numbers, quotations, and citations."
             />
           </article>
+          <article className="statement-section" id="statement-design">
+            <span className="eyebrow">07 / DESIGNING THE STORY</span>
+            <h3>Design choices</h3>
+            <WritingSlot
+              value={project.designChoices}
+              prompt="Explain the design choices behind this website and the classifier."
+            />
+          </article>
           <article className="statement-section" id="statement-ai">
-            <span className="eyebrow">07 / A NOTE ON AI USE</span>
+            <span className="eyebrow">08 / A NOTE ON AI USE</span>
             <h3>How we used AI</h3>
             <WritingSlot
               value={project.aiUsage}
@@ -285,19 +294,12 @@ export default function ResearchNotebook() {
             />
           </article>
           <article className="statement-section" id="statement-reflection">
-           <span className="eyebrow">08 / LOOKING BACK TOGETHER</span>
+           <span className="eyebrow">09 / LOOKING BACK TOGETHER</span>
            <h3>Group Reflection</h3>
            <WritingSlot
              value={project.groupReflection}
              prompt="Our group reflection."
            />
-           <div className="design-choices">
-             <h4>Design choices</h4>
-             <WritingSlot
-               value={project.designChoices}
-               prompt="Explain the design choices behind this website and the classifier: layout, visual style, how results and confidence scores are shown, accessibility, and why you made them."
-             />
-           </div>
          </article>
         </div>
       </div>
@@ -345,7 +347,7 @@ function LinkCard({
 function ProjectLinks() {
   return (
     <section className="notebook-card links-section" id="project-links">
-      <span className="eyebrow">09 / RETURN ADDRESSES</span>
+      <span className="eyebrow">10 / RETURN ADDRESSES</span>
       <h2>Find our work.</h2>
       <p className="section-description">
         The code behind this site and the images we trained our model on.

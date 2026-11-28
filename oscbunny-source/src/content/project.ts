@@ -153,7 +153,7 @@ All of us came into this semester having used AI for school and work, but had no
 
 Across the readings, discussions, and projects, we got into the habit of asking whose experiences are represented, what our results leave out, and how someone with a different perspective might understand what we made. That’s something we can take into future classes and projects, especially while there’s still time to change what we’re building.`,
 
-  /** Shown under Group Reflection (section 08). Leave empty to show the placeholder prompt. */
+  /** Section 07, after the Reading room. Leave empty to show the placeholder prompt. */
   designChoices: `We designed our website as a short story that visitors could take part in. Oscbunny is a recurring character who connects the pages, while pastel colors and rounded shapes give the site a storybook feel. We chose this playful style to encourage people of all ages to explore the site and try the classifier, even if they’ve never used a machine learning model before.
 
 We encourage visitors to become a part of our website's story by uploading an image of their handwriting or taking a photo with their camera which allows them to explore the biases in technology firsthand.`,
